@@ -1,0 +1,170 @@
+.cinta-logos {
+  width: 100%;
+  padding: clamp(14px, 2vw, 22px) 0 clamp(18px, 2.6vw, 28px);
+  background: linear-gradient(to bottom, rgba(10, 14, 31, 0.25), rgba(10, 14, 31, 0.85));
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cinta-logos__wrap {
+  width: 100%;
+  padding: 0 clamp(14px, 2.8vw, 30px);
+}
+
+.cinta-logos__titulo {
+  margin: 0 0 12px;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cinta-logos__marquesina {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: clamp(14px, 1.6vw, 18px);
+
+  min-height: clamp(92px, 8.5vw, 120px);
+  padding: clamp(14px, 1.8vw, 18px) 0;
+
+  background:
+    radial-gradient(1200px 120px at 15% 30%, rgba(0, 170, 255, 0.12), rgba(0, 0, 0, 0)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(10px);
+}
+
+.cinta-logos__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(46px, 6vw, 110px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cinta-logos__fade--izq {
+  left: 0;
+  background: linear-gradient(to right, rgba(10, 14, 31, 1), rgba(10, 14, 31, 0));
+}
+
+.cinta-logos__fade--der {
+  right: 0;
+  background: linear-gradient(to left, rgba(10, 14, 31, 1), rgba(10, 14, 31, 0));
+}
+
+.cinta-logos__swiper {
+  width: 100%;
+  padding: 0 clamp(10px, 2vw, 18px);
+}
+
+.cinta-logos__swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.cinta-logos__slide {
+  width: auto;
+}
+
+/* Nueva pista CSS para scroll continuo */
+.cinta-logos__track {
+  width: 100%;
+  overflow: hidden;
+}
+
+.cinta-logos__list {
+  display: flex;
+  gap: clamp(12px, 2vw, 22px);
+  align-items: center;
+  /* ancho lo suficiente para contener dos veces la lista */
+  white-space: nowrap;
+  animation: cinta-scroll 28s linear infinite;
+}
+
+.cinta-logos__list:hover {
+  animation-play-state: paused;
+}
+
+@keyframes cinta-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.cinta-logos__item {
+  display: grid;
+  place-items: center;
+  height: clamp(72px, 7vw, 92px);
+  padding: 14px clamp(18px, 2.6vw, 26px);
+
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.14));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.cinta-logos__img {
+  height: clamp(44px, 4.2vw, 64px);
+  width: auto;
+  max-width: clamp(200px, 20vw, 320px);
+
+  display: block;
+  opacity: 1;
+  filter: saturate(1.06) contrast(1.04) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+
+  transition:
+    transform 200ms ease,
+    filter 200ms ease,
+    opacity 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cinta-logos__item:hover {
+    transform: translateY(-3px) scale(1.03); /* ligera elevación y escala */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.12));
+    border-color: rgba(0, 170, 255, 0.5);
+    box-shadow:
+      0 20px 44px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(0, 170, 255, 0.09) inset;
+  }
+
+  .cinta-logos__item:hover .cinta-logos__img {
+    transform: scale(1.04); /* crecimiento sutil */
+    filter: saturate(1.2) contrast(1.1) brightness(1.12)
+      drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+    opacity: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .cinta-logos__wrap {
+    padding: 0 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-logos__fade {
+    display: none;
+  }
+
+  .cinta-logos__list {
+    animation: none;
+  }
+}

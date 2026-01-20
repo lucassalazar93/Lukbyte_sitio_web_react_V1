@@ -2,15 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToSection from './utils/ScrollToSection';
 
-// 🔥 Mapas de calor
 import HotjarInitializer from './utils/HotjarInitializer';
 
-// 🐝 Elementos globales
 import AbejaSeguidora from './components/AbejaSeguidora/AbejaSeguidora';
-import CodyChat from './components/CodyChat'; // ✅ NUEVO
+import CodyChat from './components/CodyChat';
 
-// 🧭 Navegación principal
 import Navbar from './components/Navbar/Navbar';
+
 import DesarrolloWeb from './pages/servicios/DesarrolloWeb';
 import DisenoUIUX from './pages/servicios/DisenoUIUX';
 import AplicacionesPWA from './pages/servicios/AplicacionesPWA';
@@ -19,19 +17,18 @@ import Ejemplos from './pages/servicios/Ejemplos';
 import InvitacionesDigitales from './pages/servicios/InvitacionesDigitales';
 import BioLinks from './pages/servicios/BioLinks';
 
-// 🎯 Secciones principales
 import Hero from './components/Hero';
-import SeccionGancho from './components/Gancho/SeccionGancho';
+import CintaLogos from './components/CintaLogos/CintaLogos';
 import Servicios from './components/Servicios/Servicios';
 import Elegirnos from './components/Elegirnos/Elegirnos';
 import Proyectos from './components/Proyectos/Proyectos';
 import Testimonios from './components/Testimonios/Testimonios';
+
 import TerminosCondiciones from './pages/TerminosCondiciones';
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad';
 import Nosotros from './pages/Nosotros';
 import Agendar from './pages/Agendar';
 
-// 🦶 Pie de página
 import Footer from './components/Footer/Footer';
 
 function Home() {
@@ -43,9 +40,7 @@ function Home() {
         <Hero />
       </section>
 
-      <section id="oferta-limitada">
-        <SeccionGancho />
-      </section>
+      <CintaLogos />
 
       <section id="servicios">
         <Servicios />
@@ -60,7 +55,7 @@ function Home() {
       <Testimonios />
 
       <section id="contacto">
-        <div style={{ height: '1px' }}></div>
+        <div style={{ height: '1px' }} />
       </section>
     </>
   );
@@ -72,6 +67,7 @@ function App() {
       <HotjarInitializer />
       <AbejaSeguidora />
       <Navbar />
+
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -89,9 +85,7 @@ function App() {
         </Routes>
       </main>
 
-      {/* ✅ CodyChat fijo para todas las páginas */}
-      <CodyChat />
-
+      {/* <CodyChat /> */}
       <Footer />
     </Router>
   );

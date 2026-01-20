@@ -123,14 +123,6 @@ Quedo super atent@ a la respuesta.
             ></textarea>
             <button type="submit">Enviar</button>
           </form>
-
-          <div className="boletin">
-            <p>Recibe tips y novedades exclusivas:</p>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Tu correo" required />
-              <button>Suscribirme</button>
-            </form>
-          </div>
         </div>
       </div>
 

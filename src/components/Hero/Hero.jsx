@@ -65,8 +65,11 @@ const Hero = () => {
           <span className={styles.byte}>byte</span>
         </h1>
         <p className={styles.heroSubtitle}>
-          “Transformamos ideas en experiencias digitales{' '}
-          <span className={styles.destacado}>inolvidables.</span>”
+          Desarrollo de software a medida y soluciones digitales escalables para impulsar el
+          crecimiento de tu empresa.
+          <small className={styles.heroSmall}>
+            Experiencia en proyectos con <strong>Gef</strong> y <strong>Punto Blanco</strong>.
+          </small>
         </p>
       </motion.div>
 
@@ -76,15 +79,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
-      >
-        <button onClick={handleScroll} className={styles.ctaButton}>
-          Reclamar mi regalo gratuito 🎁
-        </button>
-        <div className={styles.flecha}>
-          <span>▼</span>
-          <p className={styles.scrollHint}>Desliza para explorar</p>
-        </div>
-      </motion.div>
+      ></motion.div>
     </motion.section>
   );
 };

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap');
 
-/* ============ HERO PRINCIPAL ============ */
 .hero {
   font-family: 'Rajdhani', sans-serif;
   position: relative;
@@ -17,7 +16,6 @@
   animation: aparecerHero 1.2s ease-out forwards;
 }
 
-/* 🎥 Video de fondo */
 .videoFondo {
   position: absolute;
   top: 0;
@@ -31,7 +29,6 @@
   animation: fadeVideo 1.5s ease-in-out forwards;
 }
 
-/* 🌫 Overlay */
 .overlay {
   position: absolute;
   top: 0;
@@ -43,7 +40,6 @@
   pointer-events: none;
 }
 
-/* Fallback en móvil */
 .fallbackImg {
   position: absolute;
   top: 0;
@@ -56,7 +52,6 @@
   animation: fadeVideo 1.5s ease-in-out forwards;
 }
 
-/* Animaciones */
 @keyframes aparecerHero {
   to {
     opacity: 1;
@@ -75,9 +70,6 @@
   }
 }
 
-/* ============================= */
-/*           TEXTO HERO          */
-/* ============================= */
 .textWrapper {
   position: absolute;
   top: 40%;
@@ -109,7 +101,15 @@
   max-width: 100%;
 }
 
-/* Colores destacados */
+.heroSmall {
+  font-size: 0.95rem;
+  opacity: 0.88;
+  margin-top: 0.6rem;
+  display: block;
+  color: rgba(255, 255, 255, 0.94);
+  font-weight: 500;
+}
+
 .blanco {
   color: #ffffff;
   font-weight: 700;
@@ -129,27 +129,22 @@
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* ============================= */
-/*        BOTÓN CTA HERO         */
-/* ============================= */
 .centerCta {
-  position: absolute; /* Posiciona el botón respecto al contenedor padre con posición relativa (el .hero) */
+  position: absolute;
 
-  bottom: 40px; /* Lo ubica a 60px desde el borde inferior del contenedor */
+  bottom: 40px;
 
-  left: 40%; /* Lo mueve hacia el centro horizontal del contenedor (desde el borde izquierdo) */
+  left: 40%;
 
-  transform: translateX(
-    -50%
-  ); /* Lo traslada hacia la izquierda el 50% de su propio ancho para centrarlo horizontalmente */
+  transform: translateX(-50%);
 
-  display: flex; /* Usa Flexbox para alinear el botón y el texto de forma vertical */
+  display: flex;
 
-  flex-direction: column; /* Apila los elementos hijos (el botón y la flecha) uno debajo del otro */
+  flex-direction: column;
 
-  align-items: center; /* Centra horizontalmente los elementos hijos dentro del contenedor */
+  align-items: center;
 
-  z-index: 2; /* Lo posiciona por encima del video y el fondo, asegurando visibilidad */
+  z-index: 2;
 }
 
 .ctaButton {
@@ -182,9 +177,6 @@
   }
 }
 
-/* ============================= */
-/*         FLECHA ABAJO          */
-/* ============================= */
 .flecha {
   margin-top: 20px;
   font-size: 2rem;
@@ -226,9 +218,6 @@
   }
 }
 
-/* ============================= */
-/*       RESPONSIVE MOBILE       */
-/* ============================= */
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;

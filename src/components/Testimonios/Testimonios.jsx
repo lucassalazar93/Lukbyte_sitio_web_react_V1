@@ -1,39 +1,48 @@
-import React from "react"; // ✅ NECESARIO
-import { motion } from "framer-motion";
-import "./Testimonios.css";
+import React from 'react';
+import { motion } from 'framer-motion';
+import './Testimonios.css';
 
 // ✅ Importa las imágenes correctamente desde assets
-import pedro from "../../assets/clientes/cliente1.png";
-import diego from "../../assets/clientes/cliente2.png";
-import cristian from "../../assets/clientes/cliente3.png";
+// Sugerencia: Si no tienes las fotos reales, usa iniciales o logos circulares
+import noreImg from '../../assets/clientes/cliente1.png';
+import alimentImg from '../../assets/clientes/cliente2.png';
+import pqrsImg from '../../assets/clientes/cliente3.png';
 
-// ✅ Lista de clientes
 const clientes = [
   {
-    nombre: "Lukas S",
-    texto: "Gracias a Lukbyte, nuestro sitio web ahora es rápido, moderno y profesional. ¡Un equipo increíble!",
-    img: pedro,
-    rating: 5
+    nombre: 'Nore Quintero',
+    cargo: 'Emprendedora & Consultora Gastronómica',
+    texto:
+      'Lukbyte logró capturar la esencia premium de mi marca. La landing page no solo es visualmente impactante, sino que optimizó el flujo de clientes que buscan mis servicios de consultoría gourmet.',
+    proyecto: 'Proyecto: Landing Page Premium',
+    img: noreImg,
+    rating: 5,
   },
   {
-    nombre: "Diana G",
-    texto: "Lukbyte transformó mi negocio digital. ¡Altamente recomendados!",
-    img: diego,
-    rating: 5
+    nombre: 'Juan pablo Martínez',
+    cargo: 'Especialista en Seguridad Alimentaria',
+    texto:
+      'Necesitábamos una plataforma para ofrecer nuestros cursos de manipulación de alimentos. Lukbyte desarrolló un sitio web ágil que facilita la inscripción y mejora la visibilidad de nuestros servicios.',
+    proyecto: 'Servicio: Web de Servicios Profesionales',
+    img: alimentImg,
+    rating: 5,
   },
   {
-    nombre: "Maria M",
-    texto: "Impecable servicio. Siempre atentos y cumplieron con cada detalle técnico. ¡100% recomendados!",
-    img: cristian,
-    rating: 5
-  }
+    nombre: 'María Gómez',
+    cargo: 'Sector Logística / Retail',
+    texto:
+      'El sistema de recepción de PQRS que implementaron transformó nuestra atención al cliente. Pasamos de procesos manuales a una gestión centralizada, eficiente y con trazabilidad total de los requerimientos.',
+    proyecto: 'Software: Sistema de Gestión de PQRS',
+    img: pqrsImg,
+    rating: 5,
+  },
 ];
 
 export default function Testimonios() {
   return (
     <section className="testimonios" id="testimonios">
       <h2 className="testimonios-title">
-        Testimonios <span className="lukbyte">De Clientes</span>
+        Testimonios <span className="lukbyte">Con Impacto Real</span>
       </h2>
 
       <div className="testimonios-grid">
@@ -46,10 +55,21 @@ export default function Testimonios() {
             transition={{ duration: 0.4, delay: i * 0.1 }}
             viewport={{ once: true }}
           >
-            <img src={cli.img} alt={cli.nombre} className="cliente-foto" />
-            <p className="testimonial-text">{cli.texto}</p>
-            <h3>{cli.nombre}</h3>
-            <div className="estrellas">{"★".repeat(cli.rating)}</div>
+            <div className="cliente-header">
+              <img src={cli.img} alt={cli.nombre} className="cliente-foto" />
+              <div className="cliente-meta">
+                <h3>{cli.nombre}</h3>
+                <span className="cliente-cargo">{cli.cargo}</span>
+              </div>
+            </div>
+
+            <p className="testimonial-text">"{cli.texto}"</p>
+
+            <div className="proyecto-tag">
+              <small>{cli.proyecto}</small>
+            </div>
+
+            <div className="estrellas">{'★'.repeat(cli.rating)}</div>
           </motion.div>
         ))}
       </div>
