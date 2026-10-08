@@ -25,6 +25,76 @@
   max-width: 20ch;
 }
 
+.scheduler-head .lede {
+  max-width: 54ch;
+  margin-top: clamp(18px, 2.2vw, 28px);
+}
+
+.btn.scheduler-saltar {
+  margin-top: clamp(22px, 2.6vw, 32px);
+}
+
+/* El salto al calendario deja aire bajo la barra fija */
+.scheduler-container {
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+
+/* Qué pasa en la demo: tres pasos en fila */
+.scheduler-pasos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(26px, 3.4vw, 44px);
+  border-block: 1px solid var(--line);
+  list-style: none;
+}
+
+.scheduler-pasos li {
+  padding: clamp(18px, 2.2vw, 28px) clamp(16px, 2.2vw, 28px);
+}
+
+.scheduler-pasos li:first-child {
+  padding-left: 0;
+}
+
+.scheduler-pasos li + li {
+  border-left: 1px solid var(--line);
+}
+
+.scheduler-pasos__num {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: var(--hex);
+  background: var(--cyan);
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.scheduler-pasos__num::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  clip-path: var(--hex);
+  background: #06212f;
+}
+
+.scheduler-pasos h2 {
+  margin-block: 14px 6px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.scheduler-pasos p {
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
 .scheduler-detalles {
   display: flex;
   flex-wrap: wrap;
@@ -430,6 +500,31 @@
 }
 
 @media (max-width: 720px) {
+  .scheduler-pasos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scheduler-pasos li,
+  .scheduler-pasos li:first-child {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 14px;
+    padding: 16px 0;
+  }
+
+  .scheduler-pasos li + li {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .scheduler-pasos__num {
+    grid-row: span 2;
+  }
+
+  .scheduler-pasos h2 {
+    margin-block: 0 4px;
+  }
+
   .scheduler-container {
     grid-template-columns: minmax(0, 1fr);
   }

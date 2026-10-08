@@ -4,7 +4,6 @@ import { useReducedMotion } from 'framer-motion';
 import { PiCaretDoubleRightBold } from 'react-icons/pi';
 import styles from './Hero.module.css';
 import HiveCanvas from './HiveCanvas';
-import { whatsappUrl } from '../../utils/contacto';
 
 const MOVIL = '(max-width: 768px)';
 
@@ -77,19 +76,17 @@ const Hero = () => {
         </p>
 
         <div className={`${styles.actions} ${styles.rise}`} {...tras(0.62)}>
-          <a
-            href={whatsappUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn--primary"
-          >
-            Solicitar cotización
+          <Link to="/agendar" className="btn btn--primary">
+            Agendar demo gratis
             <PiCaretDoubleRightBold size={13} aria-hidden="true" />
-          </a>
+          </Link>
           <Link to="/?scrollTo=proyectos" className="btn btn--ghost">
             Ver proyectos
           </Link>
         </div>
+        <p className={`${styles.nota} ${styles.rise}`} {...tras(0.7)}>
+          Una videollamada de 20 minutos para tu negocio. Sin costo y sin compromiso.
+        </p>
 
         <p className={`${styles.proof} ${styles.rise}`} {...tras(0.78)}>
           Productos en operación como <strong>MandiPOS</strong> y <strong>Quick Flow</strong>, y

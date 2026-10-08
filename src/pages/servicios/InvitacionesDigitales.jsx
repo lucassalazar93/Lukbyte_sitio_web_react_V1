@@ -162,18 +162,9 @@ const InvitacionesDigitales = () => {
       {/* GALERÍA */}
       <section id="galeria" className="section" aria-labelledby="inv-galeria-titulo">
         <div className="frame">
-          <EncabezadoSeccion
-            id="inv-galeria-titulo"
-            titulo="Ejemplos"
-            tono="de invitaciones."
-          />
+          <EncabezadoSeccion id="inv-galeria-titulo" titulo="Ejemplos" tono="de invitaciones." />
 
-          <div
-            className="sv-tabs"
-            role="tablist"
-            aria-label="Tipo de evento"
-            onKeyDown={alTeclear}
-          >
+          <div className="sv-tabs" role="tablist" aria-label="Tipo de evento" onKeyDown={alTeclear}>
             {invitaciones.map((inv, i) => (
               <button
                 type="button"

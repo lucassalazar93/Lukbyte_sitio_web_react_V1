@@ -74,6 +74,31 @@
     color 0.35s var(--ease-out);
 }
 
+/* Pista para pantallas táctiles: el segundo toque abre el servicio */
+.panal__pista {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: max-content;
+  max-width: 100vw;
+  margin-top: 12px;
+  transform: translateX(-50%);
+  font-size: 0.6875rem;
+  text-align: center;
+  color: var(--text-3);
+}
+
+@media (hover: none) {
+  .panal__pista {
+    display: block;
+  }
+
+  .servicios-panal {
+    row-gap: 56px;
+  }
+}
+
 /* Entrada: las celdas se arman una tras otra cuando el panal entra en pantalla */
 .panal:not(.is-vista) .panal__celda {
   opacity: 0;

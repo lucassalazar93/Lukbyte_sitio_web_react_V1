@@ -71,7 +71,7 @@ export default function AutomatizacionAPIs() {
         acciones={
           <>
             <Accion to="/agendar" primaria>
-              Agendar una asesoría gratis
+              Agendar demo gratis
             </Accion>
             <Accion href="#casos-api">Ver casos de uso</Accion>
           </>

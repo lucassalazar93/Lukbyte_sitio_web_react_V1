@@ -105,7 +105,7 @@ export default function DesarrolloWeb() {
         acciones={
           <>
             <Accion to="/agendar" primaria>
-              Asesoría gratis
+              Agendar demo gratis
             </Accion>
             <Accion to="/servicios/ejemplos#web">Ver ejemplos</Accion>
           </>
@@ -127,12 +127,7 @@ export default function DesarrolloWeb() {
       <Proceso id="web-proceso" titulo="¿Cómo trabajamos" tono="tu sitio web?" pasos={pasos} />
 
       {/* CASOS DE ÉXITO */}
-      <Galeria
-        id="casos"
-        titulo="Casos de éxito."
-        items={casos}
-        formato="horizontal"
-      />
+      <Galeria id="casos" titulo="Casos de éxito." items={casos} formato="horizontal" />
 
       {/* FAQ */}
       <Preguntas items={preguntas} />
@@ -143,10 +138,10 @@ export default function DesarrolloWeb() {
         tono="tu presencia online?"
         acciones={
           <>
-            <Accion href={whatsappUrl(MENSAJE_DEMO)} primaria>
-              Demo gratuita
+            <Accion to="/agendar" primaria>
+              Agendar demo gratis
             </Accion>
-            <Accion to="/agendar">Agendar una asesoría</Accion>
+            <Accion href={whatsappUrl(MENSAJE_DEMO)}>Pedirla por WhatsApp</Accion>
           </>
         }
       />

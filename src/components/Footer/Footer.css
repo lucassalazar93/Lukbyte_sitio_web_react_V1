@@ -45,6 +45,20 @@
   text-underline-offset: 4px;
 }
 
+.contacto-demo {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  max-width: 44ch;
+  margin-top: clamp(26px, 3vw, 40px);
+  padding-top: clamp(20px, 2.4vw, 28px);
+  border-top: 1px solid var(--line);
+}
+
+.contacto-demo p {
+  color: var(--text-2);
+}
+
 .contacto-form {
   display: grid;
   gap: 18px;

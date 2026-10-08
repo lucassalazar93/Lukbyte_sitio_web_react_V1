@@ -60,7 +60,7 @@ export default function AplicacionesPWA() {
         acciones={
           <>
             <Accion to="/agendar" primaria>
-              Agendar una asesoría
+              Agendar demo gratis
             </Accion>
             <Accion href="#ejemplos-pwa">Ver ejemplos</Accion>
           </>
@@ -82,12 +82,7 @@ export default function AplicacionesPWA() {
       />
 
       {/* ✨ GALERÍA */}
-      <Galeria
-        id="ejemplos-pwa"
-        titulo="Ejemplos de PWAs"
-        tono="desarrolladas."
-        items={ejemplos}
-      />
+      <Galeria id="ejemplos-pwa" titulo="Ejemplos de PWAs" tono="desarrolladas." items={ejemplos} />
 
       {/* CTA FINAL */}
       <CierreServicio

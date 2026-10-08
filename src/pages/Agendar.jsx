@@ -42,10 +42,26 @@ const servicios = [
 ];
 
 const detalles = [
-  { Icono: PiSealCheckLight, texto: 'Requiere confirmación' },
   { Icono: PiClockLight, texto: '20 minutos' },
   { Icono: PiVideoCameraLight, texto: 'Google Meet' },
+  { Icono: PiSealCheckLight, texto: 'Requiere confirmación' },
   { Icono: PiGlobeHemisphereWestLight, texto: 'América/Bogotá' },
+];
+
+/* Qué pasa en la demo, en orden */
+const pasos = [
+  {
+    titulo: 'Nos cuentas tu negocio',
+    texto: 'En el formulario y al empezar la llamada: qué haces hoy y qué quieres resolver.',
+  },
+  {
+    titulo: 'Te mostramos tu demo',
+    texto: 'Una propuesta pensada para tu caso, explicada en pantalla y sin tecnicismos.',
+  },
+  {
+    titulo: 'Tú decides',
+    texto: 'Si te sirve, seguimos. Si no, no pagas nada ni quedas comprometido.',
+  },
 ];
 
 const formatoFecha = (f) =>
@@ -70,7 +86,6 @@ export default function Agendar() {
     email: '',
     numero: '',
     servicio: '',
-    presupuesto: '',
     negocio: '',
   });
 
@@ -93,7 +108,7 @@ export default function Agendar() {
     setAviso('');
 
     const fechaFormateada = fecha.toISOString().split('T')[0];
-    const descripcion = `Cita con ${formData.nombre} (${formData.email})\nServicio: ${formData.servicio}\nPresupuesto: ${formData.presupuesto}\nTeléfono: ${formData.numero}\nNegocio: ${formData.negocio}`;
+    const descripcion = `Cita con ${formData.nombre} (${formData.email})\nServicio: ${formData.servicio}\nTeléfono: ${formData.numero}\nNegocio: ${formData.negocio}`;
 
     await enviarCitaAGoogleCalendar({
       titulo: `Cita - ${formData.servicio}`,
@@ -107,7 +122,6 @@ export default function Agendar() {
       email: formData.email,
       numero: formData.numero,
       servicio: formData.servicio,
-      presupuesto: formData.presupuesto,
       negocio: formData.negocio,
       fecha: fechaFormateada,
       hora: horaSeleccionada,
@@ -123,7 +137,7 @@ export default function Agendar() {
   const generarLinkWhatsApp = () => {
     const mensaje = `Hola Lukbyte 👋\n\nHe agendado una demo gratuita para el *${formatoFecha(
       fechaConfirmada
-    )}* a las *${horaConfirmada}*.\n\nAquí están mis datos:\n\n🧑‍💼 *Nombre:* ${formData.nombre}\n📧 *Email:* ${formData.email}\n📱 *WhatsApp:* ${formData.numero}\n💼 *Servicio:* ${formData.servicio}\n💰 *Presupuesto:* ${formData.presupuesto}\n📝 *Negocio:* ${formData.negocio}\n\n¡Quedo atento a la reunión! 🚀`;
+    )}* a las *${horaConfirmada}*.\n\nAquí están mis datos:\n\n🧑‍💼 *Nombre:* ${formData.nombre}\n📧 *Email:* ${formData.email}\n📱 *WhatsApp:* ${formData.numero}\n💼 *Servicio:* ${formData.servicio}\n📝 *Negocio:* ${formData.negocio}\n\n¡Quedo atento a la reunión! 🚀`;
     return whatsappUrl(mensaje);
   };
 
@@ -137,7 +151,7 @@ export default function Agendar() {
               <h2 id="gracias">
                 ¡Gracias por agendar, <span className="resaltar">{formData.nombre}</span>!
               </h2>
-              <p>Tu cita ha sido registrada exitosamente.</p>
+              <p>Tu demo gratis quedó reservada.</p>
               <div className="resumen-cita">
                 <strong>{formatoFecha(fechaConfirmada)}</strong>
                 <strong>{horaConfirmada}</strong>
@@ -171,9 +185,28 @@ export default function Agendar() {
 
         <header className="scheduler-head">
           <h1 className="h-display" id="agendar-titulo">
-            15 Min Demo.
-            <span className="tone">Primer paso para transformar tu presencia digital.</span>
+            Demo gratis para tu negocio.
+            <span className="tone">Sin costo y sin compromiso.</span>
           </h1>
+          <p className="lede">
+            Reserva una videollamada de 20 minutos. Antes de hablar de precios, te mostramos cómo se
+            vería una solución hecha para tu negocio. Verla no te cuesta nada.
+          </p>
+          <a href="#reserva" className="btn btn--primary scheduler-saltar">
+            Reservar mi demo gratis
+            <PiCaretDoubleRightBold size={13} aria-hidden="true" />
+          </a>
+          <ol className="scheduler-pasos">
+            {pasos.map((paso, i) => (
+              <li key={paso.titulo}>
+                <span className="scheduler-pasos__num" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <h2>{paso.titulo}</h2>
+                <p>{paso.texto}</p>
+              </li>
+            ))}
+          </ol>
           <ul className="scheduler-detalles">
             {detalles.map(({ Icono, texto }) => (
               <li key={texto}>
@@ -184,7 +217,7 @@ export default function Agendar() {
           </ul>
         </header>
 
-        <div className="scheduler-container">
+        <div className="scheduler-container" id="reserva">
           <div className="scheduler-info">
             <h2>Tus datos</h2>
             <form className="demo-form" onSubmit={(e) => e.preventDefault()}>
@@ -226,15 +259,6 @@ export default function Agendar() {
                       {s}
                     </option>
                   ))}
-                </select>
-              </label>
-              <label>
-                <span>Presupuesto *</span>
-                <select required value={formData.presupuesto} onChange={campo('presupuesto')}>
-                  <option value="">Selecciona un rango</option>
-                  <option value="300 a 700 USD">300 a 700 USD</option>
-                  <option value="701 a 1500 USD">701 a 1500 USD</option>
-                  <option value="Más de 1500 USD">Más de 1500 USD</option>
                 </select>
               </label>
               <label>
@@ -288,7 +312,7 @@ export default function Agendar() {
             {horaSeleccionada && fecha && (
               <form onSubmit={handleSubmit}>
                 <button type="submit" className="btn btn--primary confirm-btn">
-                  Confirmar {formatoFecha(fecha)} a las {horaSeleccionada}
+                  Reservar mi demo gratis: {formatoFecha(fecha)}, {horaSeleccionada}
                 </button>
               </form>
             )}

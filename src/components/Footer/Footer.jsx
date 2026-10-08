@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   PiCaretDoubleRightBold,
   PiEnvelopeSimpleLight,
@@ -35,6 +35,7 @@ export default function Footer() {
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const { pathname } = useLocation();
 
   const enviarWhatsApp = (e) => {
     e.preventDefault();
@@ -86,6 +87,19 @@ Quedo super atent@ a la respuesta.
                   <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
                 </li>
               </ul>
+
+              {/* En la página de agendar la invitación sobra */}
+              {pathname !== '/agendar' && (
+                <div className="contacto-demo">
+                  <p>
+                    ¿Prefieres verlo antes de decidir? Agenda una demo gratis para tu negocio, sin
+                    compromiso.
+                  </p>
+                  <Link to="/agendar" className="btn btn--ghost">
+                    Agendar demo gratis
+                  </Link>
+                </div>
+              )}
             </div>
 
             <form className="contacto-form" onSubmit={enviarWhatsApp}>

@@ -60,7 +60,7 @@ const categorias = [
     descripcion: 'Interfaces modernas, intuitivas y enfocadas en conversión.',
     imagenes: [naturista, sabor, veterinaria, joyeria],
     ctaTexto: '¿Listo para enamorar a tus usuarios?',
-    ctaBoton: 'Agendar asesoría gratuita',
+    ctaBoton: 'Agendar demo gratis',
     ctaRuta: '/agendar',
   },
   {
@@ -149,7 +149,7 @@ export default function Ejemplos() {
               >
                 Solicitar por WhatsApp
               </Accion>
-              <Accion to="/agendar">Agendar una demo</Accion>
+              <Accion to="/agendar">Agendar demo gratis</Accion>
             </div>
 
             <nav className="sv-indice" aria-label="Categorías de ejemplos">
@@ -206,7 +206,7 @@ export default function Ejemplos() {
               <Accion href={whatsappUrl('Hola! Quiero una asesoría rápida')} primaria>
                 Quiero asesoría rápida
               </Accion>
-              <Accion to="/agendar">Agendar una demo</Accion>
+              <Accion to="/agendar">Agendar demo gratis</Accion>
             </>
           }
         >

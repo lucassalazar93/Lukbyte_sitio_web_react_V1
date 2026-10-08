@@ -86,6 +86,7 @@ export default function Servicios() {
   const [activo, setActivo] = useState(0);
   const [enVista, setEnVista] = useState(false);
   const panalRef = useRef(null);
+  const abrirAlSoltar = useRef(true); // falso cuando un toque solo debe mostrar el detalle
   const reduce = useReducedMotion();
   const servicio = servicios[activo];
 
@@ -123,33 +124,46 @@ export default function Servicios() {
 
         <div className="servicios-panal">
           {/* Panal: cada celda es un servicio, la abeja ocupa el centro */}
-          <div
+          <nav
             className={`panal${enVista ? ' is-vista' : ''}`}
             ref={panalRef}
-            role="group"
-            aria-label="Elige un servicio"
+            aria-label="Servicios"
           >
             <span className="panal__celda panal__celda--nucleo" aria-hidden="true">
               <img src={abeja} alt="" loading="lazy" />
             </span>
 
+            {/* Cada celda lleva a la página de su servicio. Con ratón, pasar por
+                encima muestra el detalle y el clic abre. Al tacto, el primer toque
+                muestra el detalle y el segundo abre. */}
             {servicios.map((s, i) => (
-              <button
-                type="button"
+              <Link
+                to={s.ruta}
                 key={s.ruta}
                 className={`panal__celda${i === activo ? ' is-activa' : ''}`}
                 style={{ '--cx': s.cx, '--cy': s.cy, '--i': i + 1 }}
-                aria-pressed={i === activo}
-                aria-controls="servicio-detalle"
-                onClick={() => setActivo(i)}
+                aria-label={s.titulo}
+                onPointerDown={(e) => {
+                  // Se anota antes de que el foco la active: el clic llega después
+                  abrirAlSoltar.current = e.pointerType === 'mouse' || i === activo;
+                }}
                 onPointerEnter={(e) => e.pointerType === 'mouse' && setActivo(i)}
                 onFocus={() => setActivo(i)}
+                onClick={(e) => {
+                  if (!abrirAlSoltar.current) {
+                    e.preventDefault();
+                    setActivo(i);
+                  }
+                  abrirAlSoltar.current = true;
+                }}
               >
                 <s.Icono size={28} aria-hidden="true" />
                 <span>{s.corto}</span>
-              </button>
+              </Link>
             ))}
-          </div>
+
+            <p className="panal__pista label">Toca otra vez la celda para abrir el servicio</p>
+          </nav>
 
           {/* Detalle del servicio elegido */}
           <div className="servicio-detalle" id="servicio-detalle" aria-live="polite">

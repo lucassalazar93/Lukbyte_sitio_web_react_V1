@@ -103,7 +103,7 @@ export default function DisenoUIUX() {
         acciones={
           <>
             <Accion to="/agendar" primaria>
-              Agendar una asesoría
+              Agendar demo gratis
             </Accion>
             <Accion to="/servicios/ejemplos#uiux">Ver ejemplos</Accion>
           </>
@@ -162,7 +162,7 @@ export default function DisenoUIUX() {
             <Accion href={whatsappUrl(MENSAJE_IMPACTO)} primaria>
               Quiero una interfaz que impacte
             </Accion>
-            <Accion to="/agendar">Agendar una asesoría gratis</Accion>
+            <Accion to="/agendar">Agendar demo gratis</Accion>
           </>
         }
       />

@@ -90,8 +90,8 @@ export default function Nosotros() {
             </h1>
             <p className="lede">
               Lukbyte es un equipo de desarrollo de software. Trabajamos como una colmena: cada
-              especialidad aporta su celda y el resultado es un producto digital rápido, innovador
-              y listo para escalar.
+              especialidad aporta su celda y el resultado es un producto digital rápido, innovador y
+              listo para escalar.
             </p>
             <div className="sv-acciones">
               <Accion href={whatsappUrl(MENSAJE)} primaria>
@@ -147,15 +147,15 @@ export default function Nosotros() {
               <p>
                 Soy Lucas, desarrollador fullstack con mentalidad emprendedora que equilibra lógica,
                 diseño y agilidad técnica. Trabajo de punta a punta: frontend, backend, bases de
-                datos y despliegue. Mi experiencia en entornos industriales y proyectos freelance
-                me ha enseñado que un producto digital solo es valioso cuando es funcional,
-                intuitivo y escalable.
+                datos y despliegue. Mi experiencia en entornos industriales y proyectos freelance me
+                ha enseñado que un producto digital solo es valioso cuando es funcional, intuitivo y
+                escalable.
               </p>
               <p>
                 Mi enfoque no es crear “sitios web”, sino desarrollar ecosistemas digitales con
-                propósito. Utilizo la inteligencia artificial como aliada estratégica para
-                optimizar procesos, acelerar el desarrollo y construir soluciones de alto impacto
-                que generan valor real.
+                propósito. Utilizo la inteligencia artificial como aliada estratégica para optimizar
+                procesos, acelerar el desarrollo y construir soluciones de alto impacto que generan
+                valor real.
               </p>
             </blockquote>
             <figcaption>
@@ -180,9 +180,9 @@ export default function Nosotros() {
             <PiTargetLight size={30} aria-hidden="true" />
             <h2>Misión</h2>
             <p>
-              Impulsar el crecimiento de empresas y emprendedores con software a medida,
-              plataformas web y automatización que agilizan procesos, fortalecen la identidad de
-              marca y permiten operar y vender de manera constante y profesional.
+              Impulsar el crecimiento de empresas y emprendedores con software a medida, plataformas
+              web y automatización que agilizan procesos, fortalecen la identidad de marca y
+              permiten operar y vender de manera constante y profesional.
             </p>
           </div>
           <div className="vision-box">
@@ -257,6 +257,7 @@ export default function Nosotros() {
             <Accion href={whatsappUrl(MENSAJE)} primaria>
               Comienza tu proyecto con Lukbyte
             </Accion>
+            <Accion to="/agendar">Agendar demo gratis</Accion>
           </div>
         </div>
       </section>
