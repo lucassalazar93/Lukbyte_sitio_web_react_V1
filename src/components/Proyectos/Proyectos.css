@@ -1,139 +1,229 @@
-.proyectos {
-  padding: 80px 20px;
-  background-color: #0b0d1a;
-  text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
+.proyectos .abeja-proyectos {
+  top: clamp(52px, 7vw, 100px);
+  right: clamp(10px, 3vw, 44px);
 }
 
-.titulo-proyectos {
-  font-size: clamp(2rem, 5vw, 2.6rem);
-  margin-bottom: 50px;
-  font-weight: 700;
+.proyectos .lede a {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 191, 255, 0.4);
+  text-underline-offset: 4px;
 }
 
-.titulo-proyectos .lukbyte {
-  color: #00bfff;
-}
-
+/* ───── Celdas destacadas ─────
+   Rejilla de líneas compartidas: las celdas se tocan, no flotan. */
 .proyectos-grid {
   display: grid;
-  gap: 40px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
 }
 
-.proyecto-card {
+.proyecto {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #0f1122;
-  border-radius: 30px;
-  padding: 30px 20px;
-  border: 2px solid transparent;
-  background-image: linear-gradient(#0f1122, #0f1122),
-    linear-gradient(135deg, #00bfff, #ffaa00);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-height: 520px;
-  position: relative;
+  padding: clamp(22px, 2.8vw, 36px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.proyecto-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.15);
-}
-
-.proyecto-img-wrapper {
-  width: 100%;
-  max-height: 320px;
-  padding: 10px;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #0b0d1a;
-  margin-bottom: 20px;
-}
-
-.proyecto-img-wrapper img {
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 20px;
-}
-
-.proyecto-card h3 {
-  font-size: 1.2rem;
-  color: white;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.proyecto-card p {
-  font-style: italic;
-  font-size: 0.95rem;
-  color: #ccc;
-  margin-bottom: auto;
-  padding: 10px 0;
-  min-height: 40px;
-  text-align: center;
-}
-
-.btn-ver {
-  background: transparent;
-  border: 2px solid #00bfff;
-  color: #00bfff;
-  border-radius: 20px;
-  padding: 10px 25px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s ease;
-  margin-top: 20px;
-}
-
-.btn-ver:hover {
-  background: #00bfff;
-  color: #000;
-}
-
-/* 🐝 Abejas decorativas */
-.abeja-card {
-  width: 65px;
+/* Luz que acompaña al cursor */
+.proyecto::before,
+.proyectos-lista > li::before {
+  content: '';
   position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(0, 191, 255, 0.11),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
   pointer-events: none;
-  animation: flotar 4s ease-in-out infinite;
 }
 
-.abeja-card.top-left {
-  top: -10px;
-  left: -10px;
+.proyecto:hover::before,
+.proyectos-lista > li:hover::before {
+  opacity: 1;
 }
 
-.abeja-card.bottom-right {
-  bottom: -10px;
-  right: -10px;
+.proyecto:hover .hex-emblema,
+.proyectos-lista > li:hover .hex-emblema {
+  background-color: var(--cyan);
 }
 
-@keyframes flotar {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
+.proyecto__cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: clamp(20px, 2.4vw, 30px);
+}
+
+.proyecto h3 {
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.proyecto__bajada {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--cyan-hi);
+}
+
+.proyecto__desc {
+  max-width: 58ch;
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+.proyecto__nota {
+  margin-top: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--cyan);
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.proyecto__flujo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 16px;
+  list-style: none;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--violet-hi);
+}
+
+.proyecto__flujo li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proyecto__flujo svg {
+  color: var(--text-3);
+}
+
+.proyecto__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: clamp(20px, 2.4vw, 28px);
+}
+
+/* En el mercado: la fila principal */
+.proyecto--mercado {
+  padding-block: clamp(28px, 3.6vw, 48px);
+  background-image: linear-gradient(180deg, rgba(0, 191, 255, 0.05), transparent 60%);
+}
+
+.proyecto--mercado h3 {
+  font-size: clamp(1.625rem, 2.8vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+/* ───── Más proyectos: lista densa ───── */
+.proyectos-mas {
+  margin-top: clamp(48px, 6vw, 84px);
+  padding-bottom: 16px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.proyectos-lista {
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.proyectos-lista > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.5fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 32px);
+  padding: 16px clamp(0px, 1vw, 12px);
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
+}
+
+.proyectos-lista h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.proyectos-lista h4 span {
+  font-weight: 400;
+  color: var(--cyan-hi);
+}
+
+.proyectos-lista p {
+  font-size: 0.875rem;
+  color: var(--text-2);
+}
+
+.proyectos-lista p strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.proyectos-lista__estado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 11.5rem;
+}
+
+@media (max-width: 980px) {
+  .proyectos-lista > li {
+    grid-template-columns: auto minmax(0, 1fr) auto;
   }
-  50% {
-    transform: translateY(-6px) rotate(5deg);
+
+  .proyectos-lista .chips {
+    display: none;
+  }
+
+  .proyectos-lista__estado {
+    min-width: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .proyecto-img-wrapper {
-    height: auto;
+@media (max-width: 720px) {
+  .proyectos-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .btn-ver {
-    width: 100%;
+  .proyectos-lista > li {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .proyectos-lista__estado {
+    grid-column: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
   }
 }

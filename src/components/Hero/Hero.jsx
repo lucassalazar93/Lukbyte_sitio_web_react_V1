@@ -1,86 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useReducedMotion } from 'framer-motion';
+import { PiCaretDoubleRightBold } from 'react-icons/pi';
 import styles from './Hero.module.css';
-import ParticlesFondo from './ParticlesFondo';
+import HiveCanvas from './HiveCanvas';
+import { whatsappUrl } from '../../utils/contacto';
+
+const MOVIL = '(max-width: 768px)';
+
+// Punto del encuadre donde está la abeja: desde ahí despierta el panal
+const ESCRITORIO_ORIGEN = { x: 0.7, y: 0.48 };
+const MOVIL_ORIGEN = { x: 0.62, y: 0.36 };
 
 const Hero = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const reduce = useReducedMotion();
+  const mediaRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOVIL).matches);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const mq = window.matchMedia(MOVIL);
+    const checkMobile = () => setIsMobile(mq.matches);
+    mq.addEventListener('change', checkMobile);
+    return () => mq.removeEventListener('change', checkMobile);
   }, []);
 
-  const handleScroll = () => {
-    setTimeout(() => {
-      const target = document.getElementById('regalo');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        console.warn('⚠️ No se encontró la sección con ID "regalo".');
-      }
-    }, 100); // Espera para asegurar que el DOM ya esté pintado
+  // La escena de la abeja se desplaza apenas con el cursor
+  const handleMove = (e) => {
+    if (reduce || isMobile || !mediaRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mediaRef.current.style.setProperty('--px', ((e.clientX - rect.left) / rect.width - 0.5) * 2);
+    mediaRef.current.style.setProperty('--py', ((e.clientY - rect.top) / rect.height - 0.5) * 2);
   };
 
+  // Retraso de cada pieza de la entrada, en segundos
+  const tras = (delay) => ({ style: { '--d': `${delay}s` } });
+
   return (
-    <motion.section
-      className={styles.hero}
-      initial={{ opacity: 0, y: '-100vh' }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
-    >
+    <section className={styles.hero} id="inicio" onPointerMove={handleMove}>
       {/* ✅ Video de fondo o imagen fallback */}
-      {isMobile ? (
-        <img
-          src="/videos/fallback.png"
-          alt="Fondo alternativo de la abeja cibernética"
-          className={styles.fallbackImg}
-        />
-      ) : (
-        <video
-          className={styles.videoFondo}
-          src="/videos/videoHero.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-      )}
+      <div className={styles.media} ref={mediaRef}>
+        {isMobile || reduce ? (
+          <img
+            src={isMobile ? '/videos/fallback-tech.webp' : '/videos/videoHero-tech-poster.jpg'}
+            alt="Abeja cibernética volando sobre una retícula iluminada"
+            fetchPriority="high"
+          />
+        ) : (
+          <video
+            src="/videos/videoHero-tech.mp4"
+            poster="/videos/videoHero-tech-poster.jpg"
+            aria-label="Abeja cibernética volando sobre una retícula iluminada"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        )}
+      </div>
 
-      {/* Overlay y partículas */}
-      <div className={styles.overlay}></div>
-      <ParticlesFondo />
+      <div className={styles.shade} aria-hidden="true" />
+      <HiveCanvas className={styles.hive} origen={isMobile ? MOVIL_ORIGEN : ESCRITORIO_ORIGEN} />
 
-      {/* Título y subtítulo */}
-      <motion.div
-        className={styles.textWrapper}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 1 }}
-      >
+      <div className={`frame ${styles.inner}`}>
         <h1 className={styles.heroTitle}>
-          <span className={styles.blanco}>Luk</span>
-          <span className={styles.byte}>byte</span>
+          <span className={styles.line}>
+            <span {...tras(0.15)}>Software a medida</span>
+          </span>
+          <span className={`${styles.line} ${styles.tone}`}>
+            <span {...tras(0.27)}>que crece con tu empresa.</span>
+          </span>
         </h1>
-        <p className={styles.heroSubtitle}>
-          Desarrollo de software a medida y soluciones digitales escalables para impulsar el
-          crecimiento de tu empresa.
-          <small className={styles.heroSmall}>
-            Experiencia en proyectos con <strong>Gef</strong> y <strong>Punto Blanco</strong>.
-          </small>
-        </p>
-      </motion.div>
 
-      {/* CTA */}
-      <motion.div
-        className={styles.centerCta}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-      ></motion.div>
-    </motion.section>
+        <p className={`${styles.heroSubtitle} ${styles.rise}`} {...tras(0.5)}>
+          Combinamos arquitectura limpia, inteligencia artificial y experiencia de usuario para
+          crear productos digitales que generan resultados reales.
+        </p>
+
+        <div className={`${styles.actions} ${styles.rise}`} {...tras(0.62)}>
+          <a
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--primary"
+          >
+            Solicitar cotización
+            <PiCaretDoubleRightBold size={13} aria-hidden="true" />
+          </a>
+          <Link to="/?scrollTo=proyectos" className="btn btn--ghost">
+            Ver proyectos
+          </Link>
+        </div>
+
+        <p className={`${styles.proof} ${styles.rise}`} {...tras(0.78)}>
+          Productos en operación como <strong>MandiPOS</strong> y <strong>Quick Flow</strong>, y
+          experiencia corporativa con <strong>Gef</strong>, <strong>Punto Blanco</strong> y{' '}
+          <strong>Baby Fresh</strong>.
+        </p>
+      </div>
+    </section>
   );
 };
 

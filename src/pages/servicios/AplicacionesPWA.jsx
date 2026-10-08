@@ -1,145 +1,107 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-import './AplicacionesPWA.css';
 
 // Imágenes
-import abeja from '../../assets/abejas/abeja1.png';
-import mockupPWA from '../../assets/mockups/pwa-movil-desktop.png';
-import pwa1 from '../../assets/proyectos/pwa1.png';
-import pwa2 from '../../assets/proyectos/pwa2.png';
-import pwa3 from '../../assets/proyectos/pwa3.png';
+import mockupPWA from '../../assets/servicios/pwa-mockup.webp';
+import pwa1 from '../../assets/servicios/pwa-1.webp';
+import pwa2 from '../../assets/servicios/pwa-2.webp';
+import pwa3 from '../../assets/servicios/pwa-3.webp';
+
+import {
+  Accion,
+  CierreServicio,
+  Galeria,
+  HeroServicio,
+  Proceso,
+  Puntos,
+} from '../../components/Servicio/BloquesServicio';
+import { whatsappUrl } from '../../utils/contacto';
+
+const MENSAJE = `¡Hola! Estoy interesad@ en desarrollar una Aplicación Web Progresiva (PWA) para mi negocio.
+
+Me gustaría agendar una asesoría gratuita para conocer cómo funciona y qué beneficios puede aportar a mi proyecto.`;
+
+const beneficios = [
+  'Funciona como una app nativa',
+  'Carga rápida incluso sin conexión',
+  'Instalable desde el navegador',
+  'Reduce costos de desarrollo móvil',
+  'Accesible desde cualquier dispositivo',
+  'Mejora el rendimiento y engagement',
+];
+
+const pasos = [
+  'Análisis de necesidades y funcionalidades clave',
+  'Arquitectura responsive y optimizada',
+  'Implementación de Service Workers y App Shell',
+  'Diseño UX centrado en mobile-first',
+  'Pruebas offline, instalación y accesibilidad',
+  'Lanzamiento y soporte continuo',
+];
+
+const ejemplos = [
+  { img: pwa1, alt: 'PWA de una barbería en móvil y portátil' },
+  { img: pwa2, alt: 'PWA de agenda para una barbería' },
+  { img: pwa3, alt: 'PWA de reservas para un salón de belleza' },
+];
 
 export default function AplicacionesPWA() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    AOS.init({ duration: 1000 });
   }, []);
 
-  const whatsappMessage = encodeURIComponent(
-    `¡Hola! Estoy interesad@ en desarrollar una Aplicación Web Progresiva (PWA) para mi negocio.
-
-Me gustaría agendar una asesoría gratuita para conocer cómo funciona y qué beneficios puede aportar a mi proyecto.`
-  );
-
-  const whatsappLink = `https://wa.me/573150399322?text=${whatsappMessage}`;
-
   return (
-    <main className="pwa-container">
-      {/* 🐝 Abejas decorativas animadas */}
-      <motion.img
-        src={abeja}
-        alt="abeja"
-        className="abeja-pwa top-left"
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.img
-        src={abeja}
-        alt="abeja"
-        className="abeja-pwa mid-right"
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 7, repeat: Infinity }}
-      />
-      <motion.img
-        src={abeja}
-        alt="abeja"
-        className="abeja-pwa bottom-left"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 5, repeat: Infinity }}
-      />
-
+    <div className="pwa-container">
       {/* 🔥 HERO */}
-      <section className="hero-pwa">
-        <div className="contenido-hero" data-aos="fade-right">
-          <h1 className="titulo-impactante">⚡ Aplicaciones Web Progresivas (PWA)</h1>
-          <p>
-            Carga instantánea, experiencia nativa y acceso desde cualquier dispositivo. La
-            tecnología que impulsa la nueva era del desarrollo web.
-          </p>
-          <div className="cta-hero">
-            <a
-              href="http://localhost:5173/agendar"
-              className="btn-secundario"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              📅 Agendar una asesoría
-            </a>
-
-            <a href="#ejemplos-pwa" className="btn-secundario">
-              Ver ejemplos
-            </a>
-          </div>
-        </div>
-        <div className="mockup-hero" data-aos="fade-left">
-          <img src={mockupPWA} alt="Mockup PWA" />
-        </div>
-      </section>
+      <HeroServicio
+        titulo="Aplicaciones Web Progresivas"
+        tono="PWA."
+        imagen={mockupPWA}
+        alt="Aplicación web progresiva abierta en un móvil frente a un portátil"
+        acciones={
+          <>
+            <Accion to="/agendar" primaria>
+              Agendar una asesoría
+            </Accion>
+            <Accion href="#ejemplos-pwa">Ver ejemplos</Accion>
+          </>
+        }
+      >
+        Carga instantánea, experiencia nativa y acceso desde cualquier dispositivo. La tecnología
+        que impulsa la nueva era del desarrollo web.
+      </HeroServicio>
 
       {/* 🚀 BENEFICIOS */}
-      <section className="beneficios-pwa">
-        <h2 className="titulo-impactante">🚀 ¿Por qué elegir una PWA?</h2>
-        <div className="grid-beneficios">
-          {[
-            '📱 Funciona como una app nativa',
-            '⚡ Carga rápida incluso sin conexión',
-            '📦 Instalable desde el navegador',
-            '💰 Reduce costos de desarrollo móvil',
-            '🌐 Accesible desde cualquier dispositivo',
-            '📈 Mejora el rendimiento y engagement',
-          ].map((beneficio, i) => (
-            <div className="beneficio" key={i} data-aos="zoom-in" data-aos-delay={i * 100}>
-              {beneficio}
-            </div>
-          ))}
-        </div>
-      </section>
+      <Puntos id="pwa-beneficios" titulo="¿Por qué elegir" tono="una PWA?" items={beneficios} />
 
       {/* 🛠 PROCESO */}
-      <section className="proceso-pwa">
-        <h2 className="titulo-impactante">🔧 Nuestro proceso para desarrollar tu PWA</h2>
-        <ul className="pasos-pwa">
-          {[
-            '🔍 Análisis de necesidades y funcionalidades clave',
-            '🧱 Arquitectura responsive y optimizada',
-            '⚙️ Implementación de Service Workers y App Shell',
-            '📲 Diseño UX centrado en mobile-first',
-            '✅ Pruebas offline, instalación y accesibilidad',
-            '🚀 Lanzamiento y soporte continuo',
-          ].map((paso, i) => (
-            <li key={i} data-aos="fade-up" data-aos-delay={i * 120}>
-              {paso}
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Proceso
+        id="pwa-proceso"
+        titulo="Nuestro proceso"
+        tono="para desarrollar tu PWA."
+        pasos={pasos}
+      />
 
       {/* ✨ GALERÍA */}
-      <section id="ejemplos-pwa" className="galeria-ejemplos">
-        <h2 className="titulo-impactante">✨ Ejemplos de PWAs desarrolladas</h2>
-        <div className="grid-proyectos">
-          {[pwa1, pwa2, pwa3].map((img, i) => (
-            <div className="proyecto-img" key={i} data-aos="fade-up" data-aos-delay={i * 150}>
-              <img src={img} alt={`PWA ejemplo ${i + 1}`} />
-            </div>
-          ))}
-        </div>
-      </section>
+      <Galeria
+        id="ejemplos-pwa"
+        titulo="Ejemplos de PWAs"
+        tono="desarrolladas."
+        items={ejemplos}
+      />
 
       {/* CTA FINAL */}
-      <section id="asesoria" className="cta-final">
-        <h2 className="titulo-impactante">🔥 Lleva tu producto web al siguiente nivel</h2>
-        <p>
-          Agendemos una asesoría gratuita y descubre cómo una PWA puede transformar tu experiencia
-          digital.
-        </p>
-        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-primario">
-          Quiero una PWA para mi negocio
-        </a>
-      </section>
-    </main>
+      <CierreServicio
+        titulo="Lleva tu producto web"
+        tono="al siguiente nivel."
+        acciones={
+          <Accion href={whatsappUrl(MENSAJE)} primaria>
+            Quiero una PWA para mi negocio
+          </Accion>
+        }
+      >
+        Agendemos una asesoría gratuita y descubre cómo una PWA puede transformar tu experiencia
+        digital.
+      </CierreServicio>
+    </div>
   );
 }

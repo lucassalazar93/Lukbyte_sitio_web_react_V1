@@ -1,149 +1,265 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import {
+  PiArrowUpRightBold,
+  PiLightbulbFilamentLight,
+  PiLightningLight,
+  PiRocketLaunchLight,
+  PiStackLight,
+  PiTargetLight,
+  PiUsersThreeLight,
+} from 'react-icons/pi';
 
-import abeja1 from '../assets/abejas/abeja1.png';
-import abeja2 from '../assets/abejas/abeja2.png';
-import abeja3 from '../assets/abejas/abeja3.png';
-import nosotrosImg from '../assets/mockups/nosotros.png';
+import EncabezadoSeccion from '../components/Panal/EncabezadoSeccion';
+import AbejaFlotante from '../components/Panal/AbejaFlotante';
+import BandaPanal from '../components/Panal/BandaPanal';
+import PanalEnConstruccion from '../components/Panal/PanalEnConstruccion';
+import { Accion, Proceso } from '../components/Servicio/BloquesServicio';
+import { PORTAFOLIO_URL, tecnologias } from '../data/sitio';
+import { whatsappUrl } from '../utils/contacto';
 
 import './Nosotros.css';
+
+const MENSAJE = '¡Hola Lukbyte! Quiero trabajar con ustedes en mi proyecto digital 💻📲';
+
+/* Lo que define cómo trabajamos */
+const claves = [
+  {
+    nombre: 'Rapidez',
+    texto: 'Ciclos cortos y entregas continuas para llegar antes a producción.',
+    Icono: PiLightningLight,
+  },
+  {
+    nombre: 'Innovación',
+    texto: 'Inteligencia artificial y automatización aplicadas a tu operación.',
+    Icono: PiLightbulbFilamentLight,
+  },
+  {
+    nombre: 'Escalabilidad',
+    texto: 'Arquitectura limpia y modular que crece con tu empresa.',
+    Icono: PiStackLight,
+  },
+  {
+    nombre: 'Trabajo en equipo',
+    texto: 'Diseño, desarrollo y estrategia en una sola colmena, contigo dentro.',
+    Icono: PiUsersThreeLight,
+  },
+];
+
+const pasos = [
+  'Descubrimiento y estrategia',
+  'Arquitectura y prototipo',
+  'Diseño de la experiencia',
+  'Desarrollo en ciclos cortos',
+  'Pruebas y optimización',
+  'Despliegue y acompañamiento',
+];
+
+const valores = [
+  { nombre: 'Cercanía', texto: 'Escuchamos con atención y hablamos con el corazón.' },
+  {
+    nombre: 'Profesionalismo',
+    texto: 'Cuidamos cada detalle para ofrecer soluciones de calidad.',
+  },
+  {
+    nombre: 'Creatividad',
+    texto: 'Nos encanta transformar ideas en experiencias visuales y funcionales.',
+  },
+  { nombre: 'Compromiso', texto: 'Nos tomamos cada proyecto como si fuera propio.' },
+  {
+    nombre: 'Evolución',
+    texto: 'Aprendemos, crecemos y nos adaptamos constantemente para ofrecer siempre lo mejor.',
+  },
+];
 
 export default function Nosotros() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    AOS.init({ duration: 1000 });
   }, []);
 
-  const whatsapp = '573150399322';
-  const mensaje = encodeURIComponent(
-    '¡Hola Lukbyte! Quiero trabajar con ustedes en mi proyecto digital 💻📲'
-  );
-
   return (
-    <section className="nosotros-container">
+    <div className="nosotros-container">
       {/* HERO */}
-      <div className="hero-nosotros">
-        <motion.img
-          src={abeja1}
-          alt="abeja"
-          className="abeja top-left"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-        <motion.img
-          src={abeja2}
-          alt="abeja"
-          className="abeja bottom-right"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-        <motion.img
-          src={abeja3}
-          alt="abeja"
-          className="abeja top-center"
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
+      <section className="section hero-nosotros" aria-labelledby="nosotros-titulo">
+        <div className="frame">
+          <AbejaFlotante className="abeja top-center" size={52} delay={-3} />
 
-        <div className="hero-text">
-          <h1 data-aos="fade-up">Detrás de Lukbyte</h1>
-          <p data-aos="fade-up" data-aos-delay="200">
-            Somos Lucas y Nore, una dupla real que une tecnología y estrategia para transformar
-            marcas en experiencias digitales inolvidables.
-          </p>
-          <a
-            href={`https://wa.me/${whatsapp}?text=${mensaje}`}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-principal"
+          <div className="nosotros-intro">
+            <h1 className="h-display" id="nosotros-titulo">
+              Somos un panal
+              <span className="tone">que construye tecnología.</span>
+            </h1>
+            <p className="lede">
+              Lukbyte es un equipo de desarrollo de software. Trabajamos como una colmena: cada
+              especialidad aporta su celda y el resultado es un producto digital rápido, innovador
+              y listo para escalar.
+            </p>
+            <div className="sv-acciones">
+              <Accion href={whatsappUrl(MENSAJE)} primaria>
+                Hablemos por WhatsApp
+              </Accion>
+              <Accion to="/?scrollTo=proyectos">Ver proyectos</Accion>
+            </div>
+          </div>
+
+          <PanalEnConstruccion />
+        </div>
+      </section>
+
+      {/* CLAVES */}
+      <section className="section" aria-labelledby="claves-titulo">
+        <div className="frame">
+          <EncabezadoSeccion
+            id="claves-titulo"
+            titulo="Lo que nos mueve."
+            tono="Rapidez, innovación y trabajo en equipo."
           >
-            💬 Hablemos por WhatsApp
-          </a>
-        </div>
+            No improvisamos: cada proyecto sigue un método que combina velocidad de entrega con una
+            arquitectura pensada para durar.
+          </EncabezadoSeccion>
 
-        <div className="hero-img">
-          <img src={nosotrosImg} alt="Lukbyte mockup" />
+          <ul className="nosotros-claves">
+            {claves.map(({ nombre, texto, Icono }) => (
+              <li key={nombre}>
+                <Icono size={28} aria-hidden="true" />
+                <h3>{nombre}</h3>
+                <p>{texto}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </section>
 
-      {/* SECCIÓN QUIÉNES SOMOS */}
-      <section className="quienes-somos">
-        <h2 data-aos="fade-up">¿Quiénes Somos?</h2>
-        <p data-aos="fade-up" data-aos-delay="100">
-          En Lukbyte, creemos que cada idea merece ser visible, recordada y admirada. Somos un
-          equipo apasionado por la tecnología, el diseño y el poder de lo digital para transformar
-          negocios.
-        </p>
-        <p data-aos="fade-up" data-aos-delay="200">
-          Ayudamos a emprendedores, marcas personales y pequeñas empresas a llevar su esencia al
-          mundo digital, desarrollando páginas web y embudos de venta personalizados que conectan,
-          automatizan y generan resultados. Nuestra misión es ser ese puente entre lo que sueñas y
-          lo que puedes lograr online, con cercanía, profesionalismo y un enfoque humano.
-        </p>
+      {/* PROCESO */}
+      <Proceso id="nosotros-proceso" titulo="Así construimos" tono="cada celda." pasos={pasos} />
+
+      <BandaPanal />
+
+      {/* QUIÉN LIDERA */}
+      <section className="section autor" aria-labelledby="autor-titulo">
+        <div className="frame">
+          <h2 className="h-display" id="autor-titulo">
+            Quién lidera el desarrollo.
+            <span className="tone">Lucas Salazar, fullstack developer.</span>
+          </h2>
+
+          <figure className="autor__cita">
+            <blockquote>
+              <p>
+                Soy Lucas, desarrollador fullstack con mentalidad emprendedora que equilibra lógica,
+                diseño y agilidad técnica. Trabajo de punta a punta: frontend, backend, bases de
+                datos y despliegue. Mi experiencia en entornos industriales y proyectos freelance
+                me ha enseñado que un producto digital solo es valioso cuando es funcional,
+                intuitivo y escalable.
+              </p>
+              <p>
+                Mi enfoque no es crear “sitios web”, sino desarrollar ecosistemas digitales con
+                propósito. Utilizo la inteligencia artificial como aliada estratégica para
+                optimizar procesos, acelerar el desarrollo y construir soluciones de alto impacto
+                que generan valor real.
+              </p>
+            </blockquote>
+            <figcaption>
+              <a
+                href={PORTAFOLIO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-arrow"
+              >
+                Ver portafolio
+                <PiArrowUpRightBold size={14} aria-hidden="true" />
+              </a>
+            </figcaption>
+          </figure>
+        </div>
       </section>
 
       {/* MISIÓN Y VISIÓN */}
-      <section className="mision-vision-section">
-        <div className="mision-box" data-aos="fade-right">
-          <h3>🎯 Misión</h3>
-          <p>
-            Impulsar el crecimiento de negocios y emprendedores mediante soluciones digitales
-            personalizadas como páginas web y embudos de venta, que automatizan procesos, fortalecen
-            la identidad de marca y permiten vender de manera constante, profesional y
-            emocionalmente conectada.
-          </p>
-        </div>
-        <div className="vision-box" data-aos="fade-left">
-          <h3>🚀 Visión</h3>
-          <p>
-            Ser una marca reconocida por su compromiso humano y digital con los emprendedores,
-            destacándonos como referentes en el desarrollo de soluciones web que inspiran, conectan
-            y generan impacto real y sostenible.
-          </p>
+      <section className="section mision-vision-section" aria-label="Misión y visión">
+        <div className="frame">
+          <div className="mision-box">
+            <PiTargetLight size={30} aria-hidden="true" />
+            <h2>Misión</h2>
+            <p>
+              Impulsar el crecimiento de empresas y emprendedores con software a medida,
+              plataformas web y automatización que agilizan procesos, fortalecen la identidad de
+              marca y permiten operar y vender de manera constante y profesional.
+            </p>
+          </div>
+          <div className="vision-box">
+            <PiRocketLaunchLight size={30} aria-hidden="true" />
+            <h2>Visión</h2>
+            <p>
+              Ser una marca reconocida por la rapidez, la innovación y el compromiso con que
+              construye tecnología, y un referente en soluciones digitales que generan impacto real
+              y sostenible.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* VALORES CORPORATIVOS */}
-      <section className="valores-section">
-        <h2 data-aos="fade-up">Valores Corporativos</h2>
-        <ul className="valores-lista">
-          <li data-aos="zoom-in">
-            💛 Cercanía: Escuchamos con atención y hablamos con el corazón.
-          </li>
-          <li data-aos="zoom-in" data-aos-delay="100">
-            🎯 Profesionalismo: Cuidamos cada detalle para ofrecer soluciones de calidad.
-          </li>
-          <li data-aos="zoom-in" data-aos-delay="200">
-            🌈 Creatividad: Nos encanta transformar ideas en experiencias visuales y funcionales.
-          </li>
-          <li data-aos="zoom-in" data-aos-delay="300">
-            🔒 Compromiso: Nos tomamos cada proyecto como si fuera propio.
-          </li>
-          <li data-aos="zoom-in" data-aos-delay="400">
-            📈 Evolución: Aprendemos, crecemos y nos adaptamos constantemente para ofrecer siempre
-            lo mejor.
-          </li>
-        </ul>
+      <section className="section valores-section" aria-labelledby="valores-titulo">
+        <div className="frame">
+          <EncabezadoSeccion
+            id="valores-titulo"
+            titulo="Valores corporativos."
+            tono="Cinco formas de trabajar."
+          />
+
+          <dl className="valores-lista">
+            {valores.map((valor) => (
+              <div key={valor.nombre}>
+                <dt>{valor.nombre}</dt>
+                <dd>{valor.texto}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* TECNOLOGÍAS */}
+      <section className="section tecnologias-section" aria-labelledby="tecnologias-titulo">
+        <div className="frame">
+          <EncabezadoSeccion
+            id="tecnologias-titulo"
+            titulo="Tecnologías."
+            tono="El panal por dentro."
+          >
+            Transformamos ideas complejas en soluciones digitales robustas y escalables.
+          </EncabezadoSeccion>
+
+          <div className="tecnologias-grid">
+            {tecnologias.map((bloque) => (
+              <div className="tecnologias-grupo" key={bloque.grupo}>
+                <h3>{bloque.grupo}</h3>
+                <ul>
+                  {bloque.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* CTA FINAL */}
-      <section className="cta-nosotros">
-        <h2 data-aos="fade-up">¿Listos para crear algo increíble juntos?</h2>
-        <p data-aos="fade-up" data-aos-delay="150">
-          Somos la combinación perfecta de diseño, desarrollo y estrategia. Si quieres una marca que
-          impacte, este es tu momento.
-        </p>
-        <a
-          href={`https://wa.me/${whatsapp}?text=${mensaje}`}
-          target="_blank"
-          rel="noreferrer"
-          className="btn-principal"
-        >
-          📲 Comienza tu proyecto con Lukbyte
-        </a>
+      <section className="section cta-nosotros" aria-labelledby="cta-nosotros-titulo">
+        <div className="frame">
+          <h2 className="h-display" id="cta-nosotros-titulo">
+            ¿Listos para crear algo increíble juntos?
+          </h2>
+          <p className="lede">
+            Somos la combinación perfecta de diseño, desarrollo y estrategia. Si quieres una marca
+            que impacte, este es tu momento.
+          </p>
+          <div className="sv-acciones">
+            <Accion href={whatsappUrl(MENSAJE)} primaria>
+              Comienza tu proyecto con Lukbyte
+            </Accion>
+          </div>
+        </div>
       </section>
-    </section>
+    </div>
   );
 }

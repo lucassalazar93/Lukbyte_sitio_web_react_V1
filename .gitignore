@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+# Salidas de herramientas de prueba
+.playwright-mcp

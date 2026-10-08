@@ -1,550 +1,457 @@
-/* === ESTRUCTURA BASE === */
-.scheduler {
-  background: #0d1117;
-  color: #fff;
-  padding: 3rem 1.5rem;
-  font-family: 'Poppins', sans-serif;
+/* Agendar una demo */
+.section.scheduler {
+  border-top: none;
 }
 
-.scheduler-container {
+.section.scheduler > .frame {
+  padding-top: calc(var(--nav-h) + clamp(48px, 7vw, 96px));
+}
+
+.scheduler-abeja {
+  top: calc(var(--nav-h) + 24px);
+  right: clamp(16px, 7vw, 110px);
+}
+
+.scheduler-head {
+  margin-bottom: clamp(32px, 4.4vw, 60px);
+}
+
+.scheduler-head .h-display {
+  font-size: clamp(2.25rem, 4.7vw, 3.75rem);
+  line-height: 1.04;
+}
+
+.scheduler-head .tone {
+  max-width: 20ch;
+}
+
+.scheduler-detalles {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-  justify-content: space-between;
-}
-
-/* === INFO PANEL === */
-.scheduler-info {
-  flex: 1;
-  min-width: 320px;
-  background: radial-gradient(circle at top left, #101c2c, #0b111b);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.scheduler-info h2 {
-  color: #00f0ff;
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 8px #00f0ff;
-  border-bottom: 2px solid #00f0ff44;
-  padding-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.scheduler-info p {
-  color: #ccc;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-}
-
-.scheduler-info ul {
+  gap: 10px 26px;
+  margin-top: clamp(20px, 2.6vw, 32px);
   list-style: none;
-  padding: 0;
-  line-height: 2;
-  font-size: 0.95rem;
-  color: #cdefff;
+  color: var(--text-2);
 }
 
-.scheduler-info li::before {
-  content: '💠 ';
-  margin-right: 0.5rem;
-}
-
-/* === CALENDARIO === */
-.scheduler-calendar {
-  flex: 1.5;
-  min-width: 320px;
-  background: linear-gradient(to bottom, #0b1c2c, #0e263d);
-  padding: 2rem 1.5rem;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.scheduler-calendar h3 {
-  font-size: 1.6rem;
-  color: #00f0ff;
-  margin-bottom: 1.5rem;
+.scheduler-detalles li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 9px;
+  font-size: 0.9375rem;
 }
 
-.selection-display {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  color: #0fffc1;
-  text-shadow: 0 0 4px #00f0ff;
+.scheduler-detalles svg {
+  color: var(--cyan);
 }
 
-/* === HORAS === */
-.scheduler-times {
-  flex: 1;
-  min-width: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* ───── Tres celdas: datos, calendario, horas ───── */
+.scheduler-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) auto minmax(0, 0.8fr);
+  border: 1px solid var(--line);
 }
 
-.scheduler-times h3 {
-  margin-bottom: 1rem;
+.scheduler-container > div {
+  padding: clamp(20px, 2.6vw, 34px);
 }
 
-.time-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.scheduler-container > div + div {
+  border-left: 1px solid var(--line);
 }
 
-.time-buttons button {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  padding: 0.6rem;
-  color: #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.time-buttons button:hover,
-.time-buttons button.active {
-  background: #00f0ff;
-  color: #000;
-  font-weight: bold;
-  box-shadow: 0 0 10px #00f0ff;
-}
-
-/* === BOTÓN DE CONFIRMAR === */
-.confirm-btn {
-  margin-top: 1.5rem;
-  background: linear-gradient(to right, #00f0ff, #0fffc1);
-  border: none;
-  color: #000;
-  padding: 1rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 10px #00f0ff;
-  transition: 0.3s ease;
-}
-
-/* ✨ Animación tipo pop para botón */
-.confirm-btn.pop {
-  animation: popIn 0.35s ease-out;
-  transform-origin: center;
-}
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* === CALENDARIO FLATPICKR === */
-.flatpickr-calendar {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-family: 'Poppins', sans-serif;
-}
-
-.flatpickr-months {
-  justify-content: center;
-}
-
-.flatpickr-current-month {
-  color: #00f0ff !important;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0.5rem 0;
-}
-
-.flatpickr-weekdays {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 5px;
-  margin-bottom: 10px;
-}
-
-.flatpickr-weekday {
-  color: #00f0ff !important;
+.scheduler-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.125rem;
   font-weight: 500;
-  font-size: 0.9rem;
-  text-align: center;
+  color: var(--text);
 }
 
-.dayContainer {
-  display: grid !important;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  padding: 5px;
-  justify-items: center;
-}
-
-.flatpickr-day {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 400;
-  padding: 10px 0;
-  transition: all 0.2s ease;
-}
-
-.flatpickr-day:hover {
-  background: #00f0ff;
-  color: #000;
-  cursor: pointer;
-}
-
-.flatpickr-day.selected,
-.flatpickr-day.startRange,
-.flatpickr-day.endRange {
-  background: #00f0ff !important;
-  color: #000 !important;
-  font-weight: bold;
-  box-shadow: 0 0 10px #00f0ff;
-}
-
-/* === TEXTO DE NOTA FINAL === */
-.note {
-  text-align: center;
-  margin-top: 2rem;
-}
-.note a {
-  color: #ccc;
-  text-decoration: underline;
-  font-size: 0.9rem;
-}
-
-/* === RESPONSIVE (📱 móviles) === */
-@media (max-width: 768px) {
-  .scheduler {
-    padding: 2rem 1rem;
-  }
-
-  .scheduler-container {
-    flex-direction: column;
-    padding: 1.5rem;
-  }
-
-  .scheduler-info,
-  .scheduler-calendar,
-  .scheduler-times {
-    min-width: 100%;
-    width: 100%;
-    padding: 1.5rem 1rem;
-  }
-
-  .confirm-btn {
-    position: sticky;
-    bottom: 1rem;
-    width: 100%;
-    z-index: 999;
-    margin-top: 2rem;
-  }
-
-  .scheduler-calendar {
-    align-items: stretch;
-  }
-}
-.gracias-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-.gracias-card {
-  background: rgba(0, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  text-align: center;
-  box-shadow: 0 0 30px #00f0ff88;
-  color: #fff;
-  max-width: 400px;
-  width: 90%;
-  animation: fadeInUp 0.4s ease-out;
-}
-
-.gracias-card h2 {
-  font-size: 1.8rem;
-  color: #00f0ff;
-  margin-bottom: 1rem;
-}
-
-.gracias-card p {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  color: #cdefff;
-}
-
-.gracias-card button {
-  background: #00f0ff;
-  color: #000;
-  font-weight: bold;
-  padding: 0.8rem 1.2rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.gracias-card button:hover {
-  background: #0fffc1;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === EFECTO DE FECHA Y HORA VIBRANTE === */
-.gracias-datos {
-  font-size: 1.1rem;
-  color: #0fffc1;
-  font-weight: bold;
-  margin-bottom: 1.2rem;
-  animation: vibrar 1.2s infinite;
-  text-shadow: 0 0 6px #00f0ff;
-}
-
-@keyframes vibrar {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* === FLECHAS ANIMADAS ABAJO DEL TEXTO === */
-.flechas-abajo {
-  font-size: 2rem;
-  animation: subirBajar 1s infinite ease-in-out;
-  color: #0fffc1;
-  margin-bottom: 1rem;
-}
-
-@keyframes subirBajar {
-  0% {
-    transform: translateY(-5px);
-  }
-  50% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-5px);
-  }
-}
-
-/* === BOTÓN DE WHATSAPP VISUALMENTE DESTACADO === */
-.whatsapp-btn {
-  display: inline-block;
-  margin-bottom: 1.2rem;
-  background: #25d366;
-  color: #fff;
-  padding: 0.7rem 1.2rem;
-  border-radius: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: 0.3s ease;
-  box-shadow: 0 0 10px #25d366;
-}
-
-.whatsapp-btn:hover {
-  background: #1ebd5b;
-  box-shadow: 0 0 15px #1ebd5b;
-}
-
-/* === FORMULARIO AGENDAMIENTO PERSONALIZADO === */
+/* ───── Formulario ───── */
 .demo-form {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  gap: 16px;
+}
+
+.demo-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.demo-form label > span {
+  font-size: 0.875rem;
+  color: var(--text-2);
 }
 
 .demo-form input,
 .demo-form select,
-.demo-form textarea {
+.demo-form textarea,
+.demo-form .react-tel-input .form-control {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #222;
+  height: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--line-2);
   border-radius: 10px;
-  padding: 0.75rem 1rem;
-  color: #00b9cd;
-  font-size: 0.95rem;
-  font-family: 'Poppins', sans-serif;
-  outline: none;
+  background-color: var(--panel);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text);
   transition:
-    border 0.2s ease,
-    background 0.2s ease;
-}
-
-.demo-form input::placeholder,
-.demo-form textarea::placeholder {
-  color: #00cae0;
-}
-
-.demo-form input:focus,
-.demo-form select:focus,
-.demo-form textarea:focus {
-  border-color: #00d4e8;
-  background: rgba(0, 240, 255, 0.05);
-}
-
-.demo-form select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ccc' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 0.65rem;
+    border-color 0.25s var(--ease-out),
+    background-color 0.25s var(--ease-out);
 }
 
 .demo-form textarea {
+  min-height: 96px;
   resize: vertical;
-  min-height: 80px;
-}
-.whatsapp-group {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
 }
 
-.codigo-pais {
-  width: 35%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #222;
+.demo-form input:hover,
+.demo-form select:hover,
+.demo-form textarea:hover {
+  border-color: rgba(148, 190, 255, 0.4);
+}
+
+.demo-form input:focus-visible,
+.demo-form select:focus-visible,
+.demo-form textarea:focus-visible,
+.demo-form .react-tel-input .form-control:focus {
+  outline: none;
+  border-color: var(--cyan);
+  background-color: #08141f;
+  box-shadow: none;
+}
+
+.demo-form select option {
+  background-color: var(--panel);
+  color: var(--text);
+}
+
+/* Teléfono con selector de país */
+.demo-form .react-tel-input {
+  font-family: inherit;
+}
+
+.demo-form .react-tel-input .form-control {
+  padding-left: 56px;
+}
+
+.demo-form .react-tel-input .flag-dropdown,
+.demo-form .react-tel-input .flag-dropdown.open {
+  border: none;
+  border-right: 1px solid var(--line-2);
+  border-radius: 10px 0 0 10px;
+  background-color: transparent;
+}
+
+.demo-form .react-tel-input .selected-flag,
+.demo-form .react-tel-input .selected-flag:hover,
+.demo-form .react-tel-input .selected-flag:focus,
+.demo-form .react-tel-input .flag-dropdown.open .selected-flag {
+  width: 46px;
+  border-radius: 10px 0 0 10px;
+  background-color: transparent;
+}
+
+.demo-form .react-tel-input .country-list {
+  border: 1px solid var(--line-2);
   border-radius: 10px;
-  padding: 0.75rem;
-  color: #024b63;
-  font-size: 0.95rem;
-  font-family: 'Poppins', sans-serif;
+  background-color: var(--panel);
+  color: var(--text);
 }
 
-.whatsapp-group input {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #222;
+.demo-form .react-tel-input .country-list .country:hover,
+.demo-form .react-tel-input .country-list .country.highlight {
+  background-color: rgba(0, 191, 255, 0.14);
+}
+
+.demo-form .react-tel-input .country-list .country .dial-code {
+  color: var(--text-3);
+}
+
+/* ───── Calendario ───── */
+.scheduler-calendar .flatpickr-calendar {
+  width: 308px;
+  max-width: 100%;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+/* El calendario se ajusta al ancho de su celda: en móvil no corta el domingo */
+.scheduler-calendar .flatpickr-rContainer,
+.scheduler-calendar .flatpickr-days,
+.scheduler-calendar .dayContainer {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.scheduler-calendar .flatpickr-day {
+  flex-basis: 14.2857%;
+  max-width: none;
+  height: 40px;
+  line-height: 38px;
+}
+
+.scheduler-calendar .flatpickr-months .flatpickr-month,
+.scheduler-calendar .flatpickr-current-month .flatpickr-monthDropdown-months,
+.scheduler-calendar .flatpickr-weekdays,
+.scheduler-calendar span.flatpickr-weekday {
+  background: transparent;
+  color: var(--text);
+  fill: var(--text);
+}
+
+.scheduler-calendar .flatpickr-current-month {
+  font-size: 1rem;
+}
+
+.scheduler-calendar span.flatpickr-weekday {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.scheduler-calendar .flatpickr-months .flatpickr-prev-month,
+.scheduler-calendar .flatpickr-months .flatpickr-next-month {
+  fill: var(--text-2);
+  color: var(--text-2);
+}
+
+.scheduler-calendar .flatpickr-months .flatpickr-prev-month:hover svg,
+.scheduler-calendar .flatpickr-months .flatpickr-next-month:hover svg {
+  fill: var(--cyan);
+}
+
+.scheduler-calendar .flatpickr-day {
+  border-radius: 8px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.scheduler-calendar .flatpickr-day:hover,
+.scheduler-calendar .flatpickr-day:focus {
+  border-color: var(--cyan);
+  background: rgba(0, 191, 255, 0.12);
+}
+
+.scheduler-calendar .flatpickr-day.today {
+  border-color: var(--violet);
+}
+
+.scheduler-calendar .flatpickr-day.selected,
+.scheduler-calendar .flatpickr-day.selected:hover {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: var(--cyan-ink);
+}
+
+.scheduler-calendar .flatpickr-day.flatpickr-disabled,
+.scheduler-calendar .flatpickr-day.prevMonthDay,
+.scheduler-calendar .flatpickr-day.nextMonthDay {
+  color: rgba(124, 138, 165, 0.45);
+}
+
+.selection-display {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+.selection-display::first-letter {
+  text-transform: uppercase;
+}
+
+/* ───── Horas ───── */
+.time-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+}
+
+.time-buttons button,
+.time-buttons button:hover {
+  background-color: transparent;
+  color: var(--text);
+}
+
+.time-buttons button {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--line-2);
   border-radius: 10px;
-  padding: 0.75rem 1rem;
-  color: #ffe0e0;
-}
-/* === WHATSAPP - PhoneInput personalizado === */
-/* === WHATSAPP - PhoneInput personalizado CORREGIDO === */
-.react-tel-input {
-  width: 100% !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid #222 !important;
-  border-radius: 10px !important;
-  font-family: 'Poppins', sans-serif;
-  display: flex !important;
-  align-items: center !important;
-  height: auto !important;
+  font-family: var(--font-label);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition:
+    border-color 0.25s var(--ease-out),
+    background-color 0.25s var(--ease-out),
+    color 0.25s var(--ease-out);
 }
 
-.react-tel-input .form-control {
-  width: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 10px !important;
-  padding: 0.75rem 1rem 0.75rem 60px !important; /* espacio para la bandera */
-  color: #e0f7ff !important;
-  font-size: 0.95rem !important;
-  font-family: 'Poppins', sans-serif !important;
-  height: auto !important;
-  box-sizing: border-box;
+.time-buttons button:hover {
+  border-color: var(--cyan);
+  background-color: rgba(0, 191, 255, 0.1);
 }
 
-.react-tel-input .form-control::placeholder {
-  color: #88b3c7 !important;
+.time-buttons button.active,
+.time-buttons button.active:hover {
+  border-color: var(--cyan);
+  background-color: var(--cyan);
+  color: var(--cyan-ink);
 }
 
-.react-tel-input .form-control:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2) !important;
+.btn.confirm-btn {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 18px;
+  padding-block: 12px;
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
 }
 
-.react-tel-input .flag-dropdown {
-  background: #101c2c !important;
-  border-right: 1px solid #333 !important;
-  border-radius: 10px 0 0 10px !important;
-  width: 58px !important;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
+.scheduler-aviso {
+  margin-top: 14px;
+  font-size: 0.9375rem;
+  color: #ff9d8a;
 }
 
-.react-tel-input .selected-flag {
-  width: 100% !important;
-  height: 100% !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.scheduler .note {
+  margin-top: 22px;
+  font-size: 0.9375rem;
 }
 
-.react-tel-input .country-list {
-  background-color: #0b111b !important;
-  color: #fff !important;
-  border: 1px solid #222;
-  font-family: 'Poppins', sans-serif;
-  max-height: 250px;
-  overflow-y: auto;
-  z-index: 9999;
+.scheduler .note a {
+  font-weight: 400;
+  color: var(--text-2);
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 4px;
 }
 
-.react-tel-input .country-list .country:hover {
-  background-color: rgba(0, 240, 255, 0.1) !important;
-  color: #00f0ff !important;
+.scheduler .note a:hover {
+  color: var(--cyan-hi);
 }
 
-.react-tel-input .country-list .country.highlight {
-  background-color: rgba(0, 240, 255, 0.2) !important;
-  color: #00f0ff !important;
+/* ───── Confirmación ───── */
+.gracias-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background-color: rgba(4, 6, 11, 0.86);
 }
 
-.react-tel-input .country-name {
-  color: #ccc !important;
+.gracias-card {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: min(100%, 480px);
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid var(--line-2);
+  border-radius: 20px;
+  background-color: var(--panel);
+  text-align: center;
+  box-shadow: 0 40px 90px -40px rgba(0, 140, 255, 0.6);
+}
+
+.gracias-card h2 {
+  font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.gracias-card .resaltar {
+  color: var(--cyan);
+}
+
+.gracias-card p {
+  color: var(--text-2);
+}
+
+.resumen-cita {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+}
+
+.resumen-cita strong {
+  font-weight: 500;
+}
+
+.resumen-cita strong:first-child::first-letter {
+  text-transform: uppercase;
+}
+
+.gracias-card .btn {
+  width: 100%;
+}
+
+/* ───── Adaptación ───── */
+@media (max-width: 1080px) {
+  .scheduler-container {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .scheduler-info {
+    grid-column: 1 / -1;
+  }
+
+  .scheduler-container > .scheduler-calendar {
+    border-top: 1px solid var(--line);
+    border-left: none;
+  }
+
+  .scheduler-container > .scheduler-times {
+    grid-column: 1;
+    grid-row: 2;
+    border-top: 1px solid var(--line);
+    border-left: none;
+    border-right: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 720px) {
+  .scheduler-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scheduler-container > .scheduler-calendar,
+  .scheduler-container > .scheduler-times {
+    grid-column: auto;
+    grid-row: auto;
+    border-right: none;
+  }
+
+  .scheduler-calendar .flatpickr-calendar {
+    margin-inline: auto;
+  }
+
+  .scheduler-abeja {
+    top: calc(var(--nav-h) + 4px);
+    right: 22%;
+  }
+}
+
+/* El campo de texto que acompaña al calendario en línea no se muestra */
+.scheduler-calendar input.flatpickr-input {
+  display: none;
 }

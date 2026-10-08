@@ -1,218 +1,242 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import Zoom from 'react-medium-image-zoom';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
-import 'react-medium-image-zoom/dist/styles.css';
-import './InvitacionesDigitales.css';
 
 // Imágenes
-import bienvenida from '../../assets/mockups/generico.jpg';
-import boda from '../../assets/ejemplos/boda.png';
-import quinces from '../../assets/ejemplos/quinces.png';
-import primeraComunion from '../../assets/ejemplos/primeraComunion.png';
-import disco from '../../assets/ejemplos/disco.png';
-import empresariales from '../../assets/ejemplos/empresariales.png';
+import bienvenida from '../../assets/servicios/invitaciones-mockup.webp';
+import boda from '../../assets/servicios/inv-boda.webp';
+import quinces from '../../assets/servicios/inv-quinces.webp';
+import primeraComunion from '../../assets/servicios/inv-comunion.webp';
+import disco from '../../assets/servicios/inv-disco.webp';
+import empresariales from '../../assets/servicios/inv-empresarial.webp';
+
+import EncabezadoSeccion from '../../components/Panal/EncabezadoSeccion';
+import {
+  Accion,
+  CierreServicio,
+  HeroServicio,
+  Preguntas,
+} from '../../components/Servicio/BloquesServicio';
+import { whatsappUrl } from '../../utils/contacto';
+
+const MENSAJE_DEMO =
+  '¡Hola! 🎉 Me interesa una demo gratuita de una invitación digital. Quisiera conocer ejemplos de bodas, 15 años o eventos empresariales. ¿Podrían compartirme opciones interactivas?';
+
+const MENSAJE_ASESORIA =
+  '¡Hola! 🙋‍♀️ Me gustaría agendar una asesoría para crear una invitación digital personalizada para mi evento. ¿Cuándo podríamos conversar?';
+
+const invitaciones = [
+  {
+    id: 'boda',
+    pestana: 'Boda',
+    img: boda,
+    title: 'Invitación digital: Boda',
+    items: [
+      'Portada animada con nombres y fecha',
+      'Música personalizada',
+      'Galería de fotos',
+      'Cuenta regresiva',
+      'Mapa del evento',
+      'Itinerario',
+      'Mensajes a invitados',
+      'Confirmación de asistencia',
+      'Lista de regalos',
+      'Dress code',
+      'Diseño personalizado',
+      'Acceso privado',
+      'Compartible por redes',
+    ],
+  },
+  {
+    id: 'quinces',
+    pestana: 'Quinceañera',
+    img: quinces,
+    title: 'Quinceañera',
+    items: [
+      'Animaciones brillantes',
+      'Música pop moderna',
+      'Fotos de infancia y preparación',
+      'Itinerario: Vals, brindis, fiesta',
+      'Mapa del salón',
+      'Vestuario sugerido',
+    ],
+  },
+  {
+    id: 'comunion',
+    pestana: 'Primera Comunión',
+    img: primeraComunion,
+    title: 'Primera Comunión',
+    items: [
+      'Diseño angelical',
+      'Misa y recepción',
+      'Lista de regalos religiosos',
+      'Mapa de iglesia',
+      'Confirmación con mensaje',
+    ],
+  },
+  {
+    id: 'fiesta',
+    pestana: 'Fiesta electrónica',
+    img: disco,
+    title: 'Fiesta Electrónica',
+    items: [
+      'Visuales neon animados',
+      'Playlist integrada',
+      'QR para entrada',
+      'Diseño estilo flyer',
+    ],
+  },
+  {
+    id: 'empresarial',
+    pestana: 'Evento empresarial',
+    img: empresariales,
+    title: 'Evento Empresarial',
+    items: [
+      'Estilo elegante y profesional',
+      'Agenda de actividades',
+      'Botón de inscripción',
+      'Link de videollamada',
+      'Control de acceso',
+    ],
+  },
+];
+
+const preguntas = [
+  {
+    pregunta: '¿Cuánto tarda el desarrollo?',
+    respuesta: 'Entre 2 y 5 días hábiles según el tipo de evento.',
+  },
+  {
+    pregunta: '¿Puedo actualizar el contenido yo mismo?',
+    respuesta: 'Sí. Incluimos acceso editable o servicio de cambios posteriores.',
+  },
+  {
+    pregunta: '¿Incluye mantenimiento?',
+    respuesta: '¡Sí! Mantenimiento gratuito los primeros 15 días.',
+  },
+  {
+    pregunta: '¿Qué necesito para comenzar?',
+    respuesta: 'Solo tus datos, fotos y tipo de evento. Nosotros hacemos el resto.',
+  },
+];
 
 const InvitacionesDigitales = () => {
-  const demoMessage = encodeURIComponent(
-    '¡Hola! 🎉 Me interesa una demo gratuita de una invitación digital. Quisiera conocer ejemplos de bodas, 15 años o eventos empresariales. ¿Podrían compartirme opciones interactivas?'
-  );
+  const [activa, setActiva] = useState(0);
+  const pestanas = useRef([]);
+  const invitacion = invitaciones[activa];
 
-  const asesoriaMessage = encodeURIComponent(
-    '¡Hola! 🙋‍♀️ Me gustaría agendar una asesoría para crear una invitación digital personalizada para mi evento. ¿Cuándo podríamos conversar?'
-  );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const whatsappNumber = '573150399322';
+  // Flechas izquierda / derecha recorren las pestañas
+  const alTeclear = (e) => {
+    const paso = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+    if (!paso) return;
+    e.preventDefault();
+    const siguiente = (activa + paso + invitaciones.length) % invitaciones.length;
+    setActiva(siguiente);
+    pestanas.current[siguiente]?.focus();
+  };
 
   return (
     <div className="inv-digital-wrapper">
       {/* HERO */}
-      <section className="inv-hero">
-        <div className="inv-hero-content">
-          <motion.h1
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            🎉 Haz que tu evento comience desde la invitación
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          >
-            Invitaciones digitales elegantes, personalizadas y 100% interactivas para bodas,
-            quinceañeras, primeras comuniones, fiestas y eventos empresariales.
-          </motion.p>
-          <div className="inv-hero-buttons">
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${demoMessage}`}
-              className="btn-cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+      <HeroServicio
+        titulo="Haz que tu evento comience"
+        tono="desde la invitación."
+        imagen={bienvenida}
+        alt="Cuatro invitaciones digitales en pantallas de móvil"
+        acciones={
+          <>
+            <Accion href={whatsappUrl(MENSAJE_DEMO)} primaria>
               Solicitar demo gratuita
-            </a>
-            <a
-              href="http://localhost:5173/agendar"
-              className="btn-secundario"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              📅 Agendar una asesoría
-            </a>
-          </div>
-        </div>
-        <div className="inv-hero-mockup">
-          <img src={bienvenida} alt="Mockup invitación" loading="lazy" />
-        </div>
-      </section>
+            </Accion>
+            <Accion to="/agendar">Agendar una asesoría</Accion>
+          </>
+        }
+      >
+        Invitaciones digitales elegantes, personalizadas y 100% interactivas para bodas,
+        quinceañeras, primeras comuniones, fiestas y eventos empresariales.
+      </HeroServicio>
 
       {/* GALERÍA */}
-      <section id="galeria" className="inv-galeria">
-        <h2>Ejemplos de Invitaciones</h2>
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          centeredSlides
-          loop
-          autoplay={{ delay: 6500 }}
-          pagination={{ clickable: true }}
-          effect="coverflow"
-          modules={[Autoplay, Pagination, EffectCoverflow]}
-        >
-          {[
-            {
-              img: boda,
-              title: '💍 Invitación Digital: Boda',
-              items: [
-                '💖 Portada animada con nombres y fecha',
-                '🎵 Música personalizada',
-                '📸 Galería de fotos',
-                '🗓️ Cuenta regresiva',
-                '📍 Mapa del evento',
-                '📅 Itinerario',
-                '💬 Mensajes a invitados',
-                '📩 Confirmación de asistencia',
-                '🎁 Lista de regalos',
-                '👗 Dress code',
-                '🌿 Diseño personalizado',
-                '🔐 Acceso privado',
-                '📨 Compartible por redes',
-              ],
-            },
-            {
-              img: quinces,
-              title: '🎈 Quinceañera',
-              items: [
-                '✨ Animaciones brillantes',
-                '🎤 Música pop moderna',
-                '🧸 Fotos de infancia y preparación',
-                '📅 Itinerario: Vals, brindis, fiesta',
-                '📍 Mapa del salón',
-                '👗 Vestuario sugerido',
-              ],
-            },
-            {
-              img: primeraComunion,
-              title: '⛪ Primera Comunión',
-              items: [
-                '🕊️ Diseño angelical',
-                '🕘 Misa y recepción',
-                '🎁 Lista de regalos religiosos',
-                '📍 Mapa de iglesia',
-                '📝 Confirmación con mensaje',
-              ],
-            },
-            {
-              img: disco,
-              title: '🎶 Fiesta Electrónica',
-              items: [
-                '💫 Visuales neon animados',
-                '🎧 Playlist integrada',
-                '🕺 QR para entrada',
-                '📱 Diseño estilo flyer',
-              ],
-            },
-            {
-              img: empresariales,
-              title: '💼 Evento Empresarial',
-              items: [
-                '📈 Estilo elegante y profesional',
-                '🗓️ Agenda de actividades',
-                '📱 Botón de inscripción',
-                '💻 Link de videollamada',
-                '🔐 Control de acceso',
-              ],
-            },
-          ].map((card, index) => (
-            <SwiperSlide key={index}>
-              <div className="slide-content">
-                <Zoom>
-                  <img src={card.img} alt={card.title} className="zoom-img" />
-                </Zoom>
-                <h3>{card.title}</h3>
-                <ul className="descripcion-lista">
-                  {card.items.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <section id="galeria" className="section" aria-labelledby="inv-galeria-titulo">
+        <div className="frame">
+          <EncabezadoSeccion
+            id="inv-galeria-titulo"
+            titulo="Ejemplos"
+            tono="de invitaciones."
+          />
+
+          <div
+            className="sv-tabs"
+            role="tablist"
+            aria-label="Tipo de evento"
+            onKeyDown={alTeclear}
+          >
+            {invitaciones.map((inv, i) => (
+              <button
+                type="button"
+                key={inv.id}
+                ref={(el) => {
+                  pestanas.current[i] = el;
+                }}
+                className="sv-tab"
+                role="tab"
+                id={`inv-tab-${inv.id}`}
+                aria-selected={i === activa}
+                aria-controls="inv-panel"
+                tabIndex={i === activa ? 0 : -1}
+                onClick={() => setActiva(i)}
+              >
+                {inv.pestana}
+              </button>
+            ))}
+          </div>
+
+          {/* La clave remonta el panel y vuelve a correr su entrada */}
+          <div
+            key={invitacion.id}
+            className="sv-tabpanel"
+            role="tabpanel"
+            id="inv-panel"
+            aria-labelledby={`inv-tab-${invitacion.id}`}
+          >
+            <div>
+              <Zoom>
+                <img src={invitacion.img} alt={invitacion.title} />
+              </Zoom>
+            </div>
+            <div>
+              <h3>{invitacion.title}</h3>
+              <ul className="sv-puntos">
+                {invitacion.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* PREGUNTAS FRECUENTES */}
-      <section className="faq-section">
-        <h2>Preguntas Frecuentes</h2>
-        <div className="faq-box">
-          <details>
-            <summary>¿Cuánto tarda el desarrollo?</summary>
-            <p>Entre 2 y 5 días hábiles según el tipo de evento.</p>
-          </details>
-          <details>
-            <summary>¿Puedo actualizar el contenido yo mismo?</summary>
-            <p>Sí. Incluimos acceso editable o servicio de cambios posteriores.</p>
-          </details>
-          <details>
-            <summary>¿Incluye mantenimiento?</summary>
-            <p>¡Sí! Mantenimiento gratuito los primeros 15 días.</p>
-          </details>
-          <details>
-            <summary>¿Qué necesito para comenzar?</summary>
-            <p>Solo tus datos, fotos y tipo de evento. Nosotros hacemos el resto.</p>
-          </details>
-        </div>
-      </section>
+      <Preguntas items={preguntas} />
 
       {/* CTA FINAL */}
-      <section className="inv-cta-final">
-        <h2>¿Listo para transformar tu evento?</h2>
-        <p>Regístrate o agenda una asesoría personalizada. ¡Te guiamos paso a paso!</p>
-        <div className="inv-hero-buttons">
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${demoMessage}`}
-            className="btn-cta"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Solicitar demo gratuita
-          </a>
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${asesoriaMessage}`}
-            className="btn-secundario"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Agendar asesoría
-          </a>
-        </div>
-      </section>
+      <CierreServicio
+        titulo="¿Listo para transformar"
+        tono="tu evento?"
+        acciones={
+          <>
+            <Accion href={whatsappUrl(MENSAJE_DEMO)} primaria>
+              Solicitar demo gratuita
+            </Accion>
+            <Accion href={whatsappUrl(MENSAJE_ASESORIA)}>Agendar asesoría</Accion>
+          </>
+        }
+      >
+        Regístrate o agenda una asesoría personalizada. ¡Te guiamos paso a paso!
+      </CierreServicio>
     </div>
   );
 };

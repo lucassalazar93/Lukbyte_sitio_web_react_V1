@@ -1,257 +1,219 @@
-import React, { useEffect, useState } from 'react';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import ScrollToHash from '../../utils/ScrollToHash';
-import './Ejemplos.css';
+import AbejaFlotante from '../../components/Panal/AbejaFlotante';
+import { Accion, CierreServicio, Citas, Galeria } from '../../components/Servicio/BloquesServicio';
+import { whatsappUrl } from '../../utils/contacto';
 
-// Imágenes para secciones existentes
-import naturista from '../../assets/ejemplos/raiz-viva.png';
-import sabor from '../../assets/ejemplos/saboresFirmados.png';
-import veterinaria from '../../assets/ejemplos/veterinaria.png';
-import joyeria from '../../assets/ejemplos/brillante-eterno.png';
-import lashistas from '../../assets/ejemplos/lashistas.png';
-import barberia1 from '../../assets/ejemplos/barberia1.png';
-import barberia2 from '../../assets/ejemplos/barberia2.png';
-import soyarte from '../../assets/ejemplos/soyarte.png';
-import panaderiavip from '../../assets/ejemplos/panaderiavip-1.jpeg';
-import panaderiavip2 from '../../assets/ejemplos/panaderiavip-2.jpeg';
-import tiendaNaturista from '../../assets/ejemplos/tienda-naturista (1).jpeg';
-import tiendaNaturista2 from '../../assets/ejemplos/tienda-naturista (2).jpeg';
-import miel from '../../assets/ejemplos/miel.png';
-import vinos from '../../assets/ejemplos/vinos.png';
-import perros from '../../assets/ejemplos/perros.png';
-import postres from '../../assets/ejemplos/postres.png';
-import api1 from '../../assets/ejemplos/apis (1).png';
-import api2 from '../../assets/ejemplos/apis (2).png';
+// Imágenes
+import panaderiavip from '../../assets/proyectos/panaderiavip-1.jpeg';
+import panaderiavip2 from '../../assets/proyectos/panaderiavip-2.jpeg';
+import tiendaNaturista from '../../assets/proyectos/tienda-naturista (1).jpeg';
+import tiendaNaturista2 from '../../assets/proyectos/tienda-naturista (2).jpeg';
+import miel from '../../assets/servicios/ej-miel.webp';
+import vinos from '../../assets/servicios/ej-vinos.webp';
+import perros from '../../assets/servicios/ej-perros.webp';
+import postres from '../../assets/servicios/ej-postres.webp';
+import naturista from '../../assets/servicios/uiux-raiz-viva.webp';
+import sabor from '../../assets/servicios/uiux-sabores-firmados.webp';
+import veterinaria from '../../assets/servicios/uiux-veterinaria.webp';
+import joyeria from '../../assets/servicios/uiux-brillante-eterno.webp';
+import lashistas from '../../assets/servicios/pwa-3.webp';
+import barberia1 from '../../assets/servicios/pwa-2.webp';
+import barberia2 from '../../assets/servicios/pwa-1.webp';
+import soyarte from '../../assets/servicios/ej-soyarte.webp';
+import api1 from '../../assets/servicios/ej-api-1.webp';
+import api2 from '../../assets/servicios/ej-api-2.webp';
+import bio1 from '../../assets/servicios/ej-bio-restaurante.webp';
+import bio2 from '../../assets/servicios/ej-bio-manicurista.webp';
+import bio3 from '../../assets/servicios/bio-3.webp';
+import invitacion1 from '../../assets/servicios/inv-boda.webp';
+import invitacion2 from '../../assets/servicios/ej-invitacion-15.webp';
 
-// Imágenes NUEVAS para Bio Links e Invitaciones
-import bio1 from '../../assets/ejemplos/bio-restaurant.png';
-import bio2 from '../../assets/ejemplos/bio-manicurista.png';
-import bio3 from '../../assets/ejemplos/bio-modelo.png';
-import invitacion1 from '../../assets/ejemplos/invitacion-boda.png';
-import invitacion2 from '../../assets/ejemplos/invitacion-15s.png';
+/* Una sección por servicio. El id es el ancla a la que enlazan las páginas de servicio. */
+const categorias = [
+  {
+    id: 'web',
+    indice: 'Desarrollo web',
+    titulo: 'Desarrollo Web',
+    tono: 'Personalizado.',
+    descripcion: 'Sitios web únicos, adaptados a tus objetivos y optimizados para convertir.',
+    formato: 'horizontal',
+    imagenes: [
+      panaderiavip,
+      panaderiavip2,
+      tiendaNaturista,
+      tiendaNaturista2,
+      miel,
+      vinos,
+      perros,
+      postres,
+    ],
+    ctaTexto: '¿Te gustaría una web como esta?',
+    ctaBoton: 'Quiero una web de alto impacto',
+    ctaMensaje: 'Quiero una web de alto impacto',
+  },
+  {
+    id: 'uiux',
+    indice: 'Diseño UI/UX',
+    titulo: 'Diseño UI/UX',
+    tono: 'Profesional.',
+    descripcion: 'Interfaces modernas, intuitivas y enfocadas en conversión.',
+    imagenes: [naturista, sabor, veterinaria, joyeria],
+    ctaTexto: '¿Listo para enamorar a tus usuarios?',
+    ctaBoton: 'Agendar asesoría gratuita',
+    ctaRuta: '/agendar',
+  },
+  {
+    id: 'pwa',
+    indice: 'Apps PWA',
+    titulo: 'Aplicaciones Web Progresivas',
+    tono: 'PWA.',
+    descripcion: 'Apps instalables desde navegador, rápidas, funcionales y sin fricción.',
+    imagenes: [lashistas, barberia1, barberia2, soyarte],
+    ctaTexto: '¿Quieres una app ligera y sin tienda?',
+    ctaBoton: 'Crear mi App Progresiva',
+    ctaMensaje: 'Quiero una PWA para mi negocio',
+  },
+  {
+    id: 'api',
+    indice: 'Automatización',
+    titulo: 'Automatización',
+    tono: 'y APIs.',
+    descripcion: 'Procesos inteligentes que ahorran tiempo y evitan errores.',
+    columnas: 2,
+    imagenes: [api1, api2],
+    ctaTexto: '¿Quieres que tu negocio trabaje por ti?',
+    ctaBoton: 'Automatizar mi empresa',
+    ctaMensaje: 'Quiero automatizar mi empresa',
+  },
+  {
+    id: 'bio-links',
+    indice: 'Bio links',
+    titulo: 'Bio Links',
+    tono: 'Personalizados.',
+    descripcion:
+      'Creamos enlaces visuales, responsivos y únicos para destacar tus redes, productos o servicios desde Instagram, TikTok o tu firma digital. ¡Listos para impactar!',
+    columnas: 3,
+    imagenes: [bio1, bio2, bio3],
+    ctaTexto: '¿Quieres uno así para tu perfil?',
+    ctaBoton: 'Crear mi Bio Link',
+    ctaMensaje: 'Estoy interesado en un Bio Link personalizado',
+  },
+  {
+    id: 'invitaciones',
+    indice: 'Invitaciones',
+    titulo: 'Tarjetas Digitales',
+    tono: 'para eventos.',
+    descripcion:
+      'Diseñamos invitaciones interactivas, hermosas y personalizadas para bodas, 15 años, primeras comuniones y más. Sorprende desde el primer clic.',
+    columnas: 2,
+    imagenes: [invitacion1, invitacion2],
+    ctaTexto: '¿Quieres una invitación inolvidable?',
+    ctaBoton: 'Solicitar diseño personalizado',
+    ctaMensaje: 'Quiero una invitación digital personalizada',
+  },
+];
+
+const testimonios = [
+  {
+    texto: 'Desde que rediseñamos con Lukbyte, aumentamos 40% en conversiones.',
+    autor: 'Claudia R., ecommerce',
+  },
+];
 
 export default function Ejemplos() {
-  const [nombre, setNombre] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [mensaje, setMensaje] = useState('');
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleEnviarWhatsApp = (e) => {
-    e.preventDefault();
-    const texto = `
-¡Hola equipo Lukbyte!
-
-Soy ${nombre} (${correo})
-Estoy interesad@ en una propuesta personalizada para mi proyecto.
-
-Esto es lo que necesito:
-"${mensaje}"
-
-Muchas gracias, estaré atent@ a su propuesta.
-    `;
-    const url = `https://wa.me/573150399322?text=${encodeURIComponent(texto)}`;
-    window.open(url, '_blank');
-    setNombre('');
-    setCorreo('');
-    setMensaje('');
-  };
-
   return (
     <>
       <ScrollToHash />
-      <main className="ejemplos-container">
+      <div className="ejemplos-container">
         {/* Hero */}
-        <header className="ejemplos-hero">
-          <h1>Explora Ejemplos de Nuestro Trabajo</h1>
-          <p>
-            Inspiración real. Resultados medibles.{' '}
-            <strong>Proyectos listos para replicarse en tu negocio.</strong>
-          </p>
-          <div className="cta-superior">
-            <a
-              href="https://wa.me/573150399322?text=Hola!%20Quiero%20inspirarme%20con%20sus%20plantillas%20de%20ejemplo%20%F0%9F%8C%9F"
-              className="btn-primario"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🚀 Solicitar por WhatsApp
-            </a>
-            <a href="#formulario" className="btn-secundario">
-              📅 Agendar una demo
-            </a>
+        <section className="section sv-hero sv-hero--solo" aria-labelledby="ejemplos-titulo">
+          <div className="frame">
+            <AbejaFlotante className="sv-hero__abeja sv-hero__abeja--a" size={56} delay={-3} />
+
+            <h1 className="h-display" id="ejemplos-titulo">
+              Explora ejemplos
+              <span className="tone">de nuestro trabajo.</span>
+            </h1>
+            <p className="lede">
+              Inspiración real. Resultados medibles. Proyectos listos para replicarse en tu negocio.
+            </p>
+            <div className="sv-acciones">
+              <Accion
+                href={whatsappUrl('Hola! Quiero inspirarme con sus plantillas de ejemplo 🌟')}
+                primaria
+              >
+                Solicitar por WhatsApp
+              </Accion>
+              <Accion to="/agendar">Agendar una demo</Accion>
+            </div>
+
+            <nav className="sv-indice" aria-label="Categorías de ejemplos">
+              {categorias.map((c) => (
+                <a key={c.id} href={`#${c.id}`}>
+                  {c.indice}
+                </a>
+              ))}
+            </nav>
           </div>
-        </header>
+        </section>
 
         {/* Secciones por categoría */}
-        <Seccion
-          id="web"
-          titulo="🌐 Desarrollo Web Personalizado"
-          descripcion="Sitios web únicos, adaptados a tus objetivos y optimizados para convertir."
-          imagenes={[
-            panaderiavip,
-            panaderiavip2,
-            tiendaNaturista,
-            tiendaNaturista2,
-            miel,
-            vinos,
-            perros,
-            postres,
-          ]}
-          ctaTexto="¿Te gustaría una web como esta?"
-          ctaLink="https://wa.me/573150399322?text=Quiero%20una%20web%20de%20alto%20impacto"
-          ctaBoton="Quiero una web de alto impacto"
-        />
-
-        <Seccion
-          id="uiux"
-          titulo="🎨 Diseño UI/UX Profesional"
-          descripcion="Interfaces modernas, intuitivas y enfocadas en conversión."
-          imagenes={[naturista, sabor, veterinaria, joyeria]}
-          ctaTexto="¿Listo para enamorar a tus usuarios?"
-          ctaLink="#formulario"
-          ctaBoton="Agendar asesoría gratuita"
-        />
-
-        <Seccion
-          id="pwa"
-          titulo="📱 Aplicaciones Web Progresivas (PWA)"
-          descripcion="Apps instalables desde navegador, rápidas, funcionales y sin fricción."
-          imagenes={[lashistas, barberia1, barberia2, soyarte]}
-          ctaTexto="¿Quieres una app ligera y sin tienda?"
-          ctaLink="https://wa.me/573150399322?text=Quiero%20una%20PWA%20para%20mi%20negocio"
-          ctaBoton="Crear mi App Progresiva"
-        />
-
-        <Seccion
-          id="api"
-          titulo="⚙️ Automatización & APIs"
-          descripcion="Procesos inteligentes que ahorran tiempo y evitan errores."
-          imagenes={[api1, api2]}
-          ctaTexto="¿Quieres que tu negocio trabaje por ti?"
-          ctaLink="https://wa.me/573150399322?text=Quiero%20automatizar%20mi%20empresa"
-          ctaBoton="Automatizar mi empresa"
-        />
-
-        {/* NUEVAS SECCIONES */}
-        <Seccion
-          id="bio-links"
-          titulo="🔗 Bio Links Personalizados"
-          descripcion="Creamos enlaces visuales, responsivos y únicos para destacar tus redes, productos o servicios desde Instagram, TikTok o tu firma digital. ¡Listos para impactar!"
-          imagenes={[bio1, bio2, bio3]}
-          ctaTexto="¿Quieres uno así para tu perfil?"
-          ctaLink="https://wa.me/573150399322?text=Estoy%20interesado%20en%20un%20Bio%20Link%20personalizado"
-          ctaBoton="Crear mi Bio Link"
-        />
-
-        <Seccion
-          id="invitaciones"
-          titulo="💌 Tarjetas Digitales para Eventos"
-          descripcion="Diseñamos invitaciones interactivas, hermosas y personalizadas para bodas, 15 años, primeras comuniones y más. Sorprende desde el primer clic."
-          imagenes={[invitacion1, invitacion2]}
-          ctaTexto="¿Quieres una invitación inolvidable?"
-          ctaLink="https://wa.me/573150399322?text=Quiero%20una%20invitación%20digital%20personalizada"
-          ctaBoton="Solicitar diseño personalizado"
-        />
+        {categorias.map((c) => (
+          <Galeria
+            key={c.id}
+            id={c.id}
+            titulo={c.titulo}
+            tono={c.tono}
+            intro={c.descripcion}
+            columnas={c.columnas ?? 4}
+            formato={c.formato}
+            items={c.imagenes.map((img, i) => ({
+              img,
+              alt: `Ejemplo de ${c.indice.toLowerCase()} ${i + 1}`,
+            }))}
+            pie={
+              <>
+                <p>{c.ctaTexto}</p>
+                {c.ctaRuta ? (
+                  <Accion to={c.ctaRuta}>{c.ctaBoton}</Accion>
+                ) : (
+                  <Accion href={whatsappUrl(c.ctaMensaje)}>{c.ctaBoton}</Accion>
+                )}
+              </>
+            }
+          />
+        ))}
 
         {/* Testimonios */}
-        <section className="clientes-testimonios">
-          <h2>💬 Lo que dicen nuestros clientes</h2>
-          <blockquote>
-            “Desde que rediseñamos con Lukbyte, aumentamos 40% en conversiones.”
-          </blockquote>
-          <p>– Claudia R., ecommerce</p>
-        </section>
+        <Citas
+          id="ejemplos-testimonios"
+          titulo="Lo que dicen"
+          tono="nuestros clientes."
+          items={testimonios}
+        />
 
         {/* CTA Final */}
-        <section className="cta-final">
-          <h2>🚀 Tu proyecto puede ser el próximo caso de éxito</h2>
-          <p>
-            Agenda una demo o contáctanos por WhatsApp. Resolvemos tus dudas en minutos y empezamos
-            hoy.
-          </p>
-          <div className="cta-botones">
-            <a
-              href="https://wa.me/573150399322?text=Hola!%20Quiero%20una%20asesoría%20rápida"
-              className="btn-primario"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Quiero asesoría rápida
-            </a>
-            <a href="#formulario" className="btn-secundario">
-              Agendar una demo
-            </a>
-          </div>
-        </section>
-
-        {/* Formulario */}
-        <section id="formulario" className="formulario">
-          <h3>💡 Agenda una llamada</h3>
-          <form onSubmit={handleEnviarWhatsApp}>
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Nombre completo"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Correo electrónico"
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              required
-            />
-            <textarea
-              name="mensaje"
-              placeholder="¿Qué necesitas?"
-              value={mensaje}
-              onChange={(e) => setMensaje(e.target.value)}
-              required
-            ></textarea>
-            <button type="submit">📨 Enviar</button>
-          </form>
-        </section>
-      </main>
+        <CierreServicio
+          titulo="Tu proyecto puede ser"
+          tono="el próximo caso de éxito."
+          acciones={
+            <>
+              <Accion href={whatsappUrl('Hola! Quiero una asesoría rápida')} primaria>
+                Quiero asesoría rápida
+              </Accion>
+              <Accion to="/agendar">Agendar una demo</Accion>
+            </>
+          }
+        >
+          Agenda una demo o contáctanos por WhatsApp. Resolvemos tus dudas en minutos y empezamos
+          hoy.
+        </CierreServicio>
+      </div>
     </>
   );
 }
-
-function Seccion({ id, titulo, descripcion, imagenes, ctaTexto, ctaLink, ctaBoton }) {
-  return (
-    <section id={id} className="ejemplo-seccion">
-      <h2>{titulo}</h2>
-      <p>{descripcion}</p>
-      <div className="ejemplo-grid">
-        {imagenes.map((img, i) => (
-          <Zoom key={i}>
-            <img src={img} alt={`ejemplo ${id}-${i}`} loading="lazy" />
-          </Zoom>
-        ))}
-      </div>
-      <div className="cta-categoria">
-        <p>{ctaTexto}</p>
-        <a href={ctaLink} className="btn-cta" target="_blank" rel="noopener noreferrer">
-          {ctaBoton}
-        </a>
-      </div>
-    </section>
-  );
-}
-
-Seccion.propTypes = {
-  id: PropTypes.string.isRequired,
-  titulo: PropTypes.string.isRequired,
-  descripcion: PropTypes.string.isRequired,
-  imagenes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  ctaTexto: PropTypes.string.isRequired,
-  ctaLink: PropTypes.string.isRequired,
-  ctaBoton: PropTypes.string.isRequired,
-};

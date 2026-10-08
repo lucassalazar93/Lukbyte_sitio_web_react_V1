@@ -1,197 +1,250 @@
-/* Sección principal */
-.servicios-section {
-  background-color: #0b0d1a;
-  padding: clamp(60px, 10vh, 120px) 20px;
-  color: white;
-  text-align: center;
-  position: relative;
+.servicios-section .abeja-servicio {
+  top: clamp(40px, 6vw, 84px);
+  right: clamp(16px, 5vw, 72px);
+}
+
+.servicios-panal {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+  /* Las celdas apagadas que rodean el panal no deben ensanchar la página */
   overflow: hidden;
 }
 
-/* Título */
-.servicios-title {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 60px;
-  color: #ffffff;
+/* ───── Panal de servicios ─────
+   Celdas de punta arriba: --w es el ancho, --h el alto y --g la separación.
+   Cada celda se ubica con --cx / --cy respecto al centro. */
+.panal {
+  --w: clamp(96px, 13.4vw, 168px);
+  --h: calc(var(--w) * 1.1547);
+  --g: 8px;
+  --dx: calc(var(--w) + var(--g));
+  --dy: calc(var(--h) * 0.75 + var(--g) * 0.866);
+
+  position: relative;
+  width: calc(var(--w) * 3 + var(--g) * 2);
+  height: calc(var(--dy) * 2 + var(--h));
+  margin-inline: auto;
 }
 
-/* Contenedor en grid base */
-.servicios-grid {
-  display: grid;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  z-index: 2;
-  justify-content: center;
+/* Las celdas vecinas del panal continúan, apagadas, alrededor */
+.panal::before {
+  content: '';
+  position: absolute;
+  inset: -22% -34%;
+  background-image: var(--comb);
+  background-size: 34.64px 60px;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(closest-side, transparent 52%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(closest-side, transparent 52%, #000 70%, transparent 100%);
+  pointer-events: none;
 }
 
-/* Tarjeta de servicio */
-.servicio-card {
-  background: #101223;
-  border-radius: 20px;
-  padding: 32px 24px;
+.panal__celda,
+.panal__celda:hover {
+  background-color: var(--line-2);
+  color: var(--text-2);
+}
+
+.panal__celda {
+  position: absolute;
+  left: calc(50% + var(--cx, 0) * var(--dx) - var(--w) / 2);
+  top: calc(50% + var(--cy, 0) * var(--dy) - var(--h) / 2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 8px;
+  width: var(--w);
+  height: var(--h);
+  /* El porcentaje se mediría contra el panal entero, no contra la celda */
+  padding: 0 calc(var(--w) * 0.13);
+  border-radius: 0;
+  clip-path: var(--hex);
+  font-family: var(--font-label);
+  font-size: clamp(0.6875rem, 0.95vw, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-align: center;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  border: 2px solid transparent;
-  background-image: linear-gradient(#101223, #101223), linear-gradient(135deg, #00bfff, #ffaa00);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+    background-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
 }
 
-.servicio-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 191, 255, 0.2);
+/* Entrada: las celdas se arman una tras otra cuando el panal entra en pantalla */
+.panal:not(.is-vista) .panal__celda {
+  opacity: 0;
 }
 
-/* Ícono */
-.servicio-icon {
-  width: 80px;
-  height: auto;
-  margin-bottom: 24px;
-  filter: drop-shadow(0 0 6px #00bfff);
+.panal.is-vista .panal__celda {
+  animation: panal-entra 0.8s var(--ease-out) calc(var(--i, 0) * 70ms) both;
 }
 
-/* Título */
-.servicio-card h3 {
-  font-size: 1.3rem;
-  color: #00bfff;
-  margin-bottom: 12px;
-  font-weight: 600;
-  text-align: center;
+@keyframes panal-entra {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
 }
 
-/* Descripción */
-.servicio-card p {
-  font-size: 0.95rem;
-  color: #ccc;
-  line-height: 1.6;
-  margin-bottom: auto;
-  min-height: 100px;
-  text-align: center;
-}
-
-/* Botón (anchor) */
-.btn-ver-mas {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 2px solid #00bfff;
-  color: #00bfff;
-  background: transparent;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-}
-
-.btn-ver-mas:hover {
-  background: #00bfff;
-  color: #000;
-}
-
-.btn-ver-mas.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Botón (button) */
-.servicio-card button {
-  background-color: transparent;
-  color: white;
-  border: 2px solid #00bfff;
-  border-radius: 25px;
-  padding: 10px 22px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 30px;
-}
-
-.servicio-card button:hover {
-  background-color: #00bfff;
-  color: #0b0d1a;
-  box-shadow: 0 0 12px #00bfff;
-}
-
-/* Abejas decorativas */
-.abeja-servicio {
+/* Interior de la celda: deja ver 1px del fondo como borde */
+.panal__celda::before {
+  content: '';
   position: absolute;
-  width: 60px;
-  opacity: 0.8;
-  pointer-events: none;
-  animation: flotar 8s ease-in-out infinite;
-  z-index: 1;
+  inset: 1px;
+  z-index: -1;
+  clip-path: var(--hex);
+  background: var(--panel);
+  transition:
+    background-color 0.35s var(--ease-out),
+    inset 0.35s var(--ease-out);
 }
 
-.top-left {
-  top: 20px;
-  left: 20px;
+.panal__celda svg {
+  flex: none;
+  color: var(--text-3);
+  transition:
+    color 0.35s var(--ease-out),
+    transform 0.5s var(--ease-out);
 }
 
-.bottom-right {
-  bottom: 30px;
-  right: 30px;
+.panal__celda.is-activa,
+.panal__celda.is-activa:hover {
+  background-color: var(--cyan);
+  color: var(--text);
 }
 
-@keyframes flotar {
+.panal__celda.is-activa::before {
+  inset: 1.5px;
+  background: #06212f;
+}
+
+.panal__celda.is-activa svg {
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+/* El recorte oculta el contorno de foco: se marca con un borde más grueso */
+.panal__celda:focus-visible {
+  outline: none;
+  background-color: var(--cyan-hi);
+}
+
+.panal__celda:focus-visible::before {
+  inset: 3px;
+}
+
+.panal__celda--nucleo,
+.panal__celda--nucleo:hover {
+  background-color: var(--violet);
+}
+
+.panal__celda--nucleo::before {
+  background: #0d0b1f;
+}
+
+.panal__celda--nucleo img {
+  width: 62%;
+  height: auto;
+  animation: nucleo-flota 6s ease-in-out infinite;
+}
+
+@keyframes nucleo-flota {
   0%,
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(3px) rotate(-3deg);
   }
   50% {
-    transform: translateY(-12px) rotate(5deg);
+    transform: translateY(-5px) rotate(2deg);
   }
 }
 
-/* Móvil */
-@media (max-width: 480px) {
-  .servicio-card {
-    padding: 24px 18px;
-  }
-
-  .servicio-icon {
-    width: 55px;
-  }
-
-  .servicio-card p {
-    font-size: 0.9rem;
-  }
-
-  .servicio-card button {
-    width: 100%;
-  }
-
-  .abeja-servicio {
-    width: 38px;
-  }
+/* ───── Detalle del servicio ───── */
+.servicio-detalle {
+  min-width: 0;
 }
 
-/* 🎯 Distribución para 5 tarjetas: 3 arriba, 2 perfectamente centradas abajo */
-@media (min-width: 1024px) {
-  .layout-cinco {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    justify-content: center;
+.servicio-detalle h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.servicio-detalle__texto {
+  /* Reserva la altura del texto más largo para que el bloque no salte */
+  min-height: 6.4em;
+  max-width: 46ch;
+  margin-block: 16px 22px;
+  color: var(--text-2);
+}
+
+.servicio-lista {
+  margin-top: clamp(28px, 3.4vw, 44px);
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.servicio-lista a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-3);
+  transition:
+    color 0.3s var(--ease-out),
+    padding-left 0.4s var(--ease-out);
+}
+
+.servicio-lista a::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: var(--hex);
+  background: var(--line-2);
+  transition: background-color 0.3s var(--ease-out);
+}
+
+.servicio-lista a:hover,
+.servicio-lista a.is-activa {
+  padding-left: 8px;
+  color: var(--text);
+}
+
+.servicio-lista a.is-activa::before {
+  background: var(--cyan);
+}
+
+@media (max-width: 900px) {
+  .servicios-panal {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .layout-cinco .servicio-card {
-    width: 100%; /* Forzamos anchura completa dentro de columna */
+  .panal {
+    --w: clamp(92px, 27vw, 150px);
+    --g: 6px;
   }
 
-  /* ✅ Centrado visual de fila 2 cuando hay 2 tarjetas */
-  .layout-cinco .servicio-card:nth-child(4),
-  .layout-cinco .servicio-card:nth-child(5) {
-    grid-column: span 1;
-    justify-self: center;
+  .panal__celda {
+    gap: 6px;
+    font-size: 0.65625rem;
+    letter-spacing: 0.04em;
+  }
+
+  .panal__celda svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .servicio-detalle__texto {
+    min-height: 8em;
   }
 }

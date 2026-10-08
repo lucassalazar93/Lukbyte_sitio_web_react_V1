@@ -1,221 +1,171 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-import './DisenoUIUX.css';
 
 // Imágenes
-import abeja from '../../assets/abejas/abeja1.png';
-import mockupUIUX from '../../assets/mockups/uiux-mockup.png';
-import raizViva from '../../assets/proyectos/raiz-viva.png';
-import brillanteEterno from '../../assets/proyectos/brillante-eterno.png';
-import beautyAntes from '../../assets/proyectos/veterinaria.png';
-import beautyDespues from '../../assets/proyectos/saboresFirmados.png';
+import mockupUIUX from '../../assets/servicios/uiux-mockup.webp';
+import raizViva from '../../assets/servicios/uiux-raiz-viva.webp';
+import brillanteEterno from '../../assets/servicios/uiux-brillante-eterno.webp';
+import veterinaria from '../../assets/servicios/uiux-veterinaria.webp';
+import saboresFirmados from '../../assets/servicios/uiux-sabores-firmados.webp';
+
+import {
+  Accion,
+  CierreServicio,
+  Citas,
+  Galeria,
+  HeroServicio,
+  Preguntas,
+  Proceso,
+  Puntos,
+} from '../../components/Servicio/BloquesServicio';
+import { whatsappUrl } from '../../utils/contacto';
+
+const MENSAJE_IMPACTO =
+  '¡Hola Lukbyte! Me gustaría crear una interfaz moderna, atractiva y efectiva para mi negocio. 🎨';
+
+const beneficios = [
+  'Mejora la tasa de conversión',
+  'Aumenta el tiempo de permanencia',
+  'Reduce errores y frustración',
+  'Refuerza tu identidad visual',
+  'Mejora la accesibilidad y el SEO',
+];
+
+const pasos = [
+  'Brief de necesidades y análisis UX',
+  'Wireframes y arquitectura',
+  'Diseño visual UI (Figma, Adobe XD)',
+  'Prototipado interactivo',
+  'Pruebas de usabilidad',
+  'Entrega optimizada para desarrollo',
+];
+
+const proyectos = [
+  { img: raizViva, alt: 'Interfaz de la tienda natural Raíz Viva' },
+  { img: brillanteEterno, alt: 'Interfaz de la joyería Brillante Eterno' },
+  { img: veterinaria, alt: 'Interfaz de una clínica veterinaria' },
+  { img: saboresFirmados, alt: 'Interfaz del restaurante Sabores Firmados' },
+];
+
+const principios = [
+  'Jerarquía visual',
+  'Psicología del color',
+  'Tipografía legible',
+  'Accesibilidad (WCAG)',
+  'Diseño modular y responsive',
+  'Microinteracciones',
+];
+
+const testimonios = [
+  {
+    texto:
+      'Nuestra app se volvió mucho más clara e intuitiva. Las clientas entienden al instante cómo usarla.',
+    autor: 'Karla R., BeautyApp',
+  },
+  {
+    texto: 'Antes la gente se perdía. Hoy nos felicitan por lo fácil que es usar nuestro sistema.',
+    autor: 'Pedro S., Gestión360',
+  },
+];
+
+const preguntas = [
+  {
+    pregunta: '¿Puedo pedir solo el diseño sin desarrollo?',
+    respuesta:
+      '¡Claro! Ofrecemos diseño como servicio independiente para que lo uses con cualquier equipo de desarrollo.',
+  },
+  {
+    pregunta: '¿Con qué herramientas trabajan?',
+    respuesta: 'Figma, Adobe XD, Notion, Zeplin y más según el proyecto.',
+  },
+  {
+    pregunta: '¿Incluye tests de accesibilidad?',
+    respuesta: 'Sí, aplicamos criterios WCAG para garantizar interfaces inclusivas.',
+  },
+  {
+    pregunta: '¿Puedo dar feedback durante el proceso?',
+    respuesta: '¡Por supuesto! Es clave para crear un producto alineado contigo.',
+  },
+];
 
 export default function DisenoUIUX() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    AOS.init({ duration: 1000 });
   }, []);
 
-  const whatsapp = '573150399322';
-
-  const mensajeAsesoria = encodeURIComponent(
-    '¡Hola! Estoy interesada en una asesoría para mejorar la experiencia visual de mi sitio con diseño UI/UX. ✨'
-  );
-  const mensajeImpacto = encodeURIComponent(
-    '¡Hola Lukbyte! Me gustaría crear una interfaz moderna, atractiva y efectiva para mi negocio. 🎨'
-  );
-
   return (
-    <section className="uiux-container">
-      {/* 🐝 Abejas decorativas */}
-      <motion.img
-        src={abeja}
-        alt="abeja"
-        className="abeja-uiux top-left"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.img
-        src={abeja}
-        alt="abeja"
-        className="abeja-uiux bottom-right"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 7, repeat: Infinity }}
-      />
-
+    <div className="uiux-container">
       {/* 🎯 Hero emocional */}
-      <div className="uiux-hero">
-        <div className="uiux-hero-text">
-          <h1 className="titulo-impactante" data-aos="fade-up">
-            Interfaces que aumentan conversiones y fidelizan usuarios.
-          </h1>
-          <p data-aos="fade-up" data-aos-delay="200">
-            Convertimos tu visión en productos digitales que impactan, enamoran y hacen crecer tu
-            negocio.
-          </p>
-          <div className="uiux-hero-buttons">
-            <a
-              href="http://localhost:5173/agendar"
-              className="btn-secundario"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              📅 Agendar una asesoría
-            </a>
-
-            <a className="btn-secundario" href="/servicios/ejemplos#uiux">
-              🔍 Ver ejemplos
-            </a>
-          </div>
-        </div>
-        <div className="uiux-mockup" data-aos="zoom-in-left">
-          <img src={mockupUIUX} alt="Mockup interfaz Figma" />
-        </div>
-      </div>
+      <HeroServicio
+        titulo="Interfaces que aumentan conversiones"
+        tono="y fidelizan usuarios."
+        imagen={mockupUIUX}
+        alt="Interfaz de una joyería en móvil, tableta y portátil"
+        acciones={
+          <>
+            <Accion to="/agendar" primaria>
+              Agendar una asesoría
+            </Accion>
+            <Accion to="/servicios/ejemplos#uiux">Ver ejemplos</Accion>
+          </>
+        }
+      >
+        Convertimos tu visión en productos digitales que impactan, enamoran y hacen crecer tu
+        negocio.
+      </HeroServicio>
 
       {/* ⭐ Beneficios */}
-      <section className="uiux-beneficios">
-        <h2 className="titulo-impactante">✨ ¿Por qué el diseño UI/UX es esencial?</h2>
-        <p>
-          El diseño UI/UX no es solo estética. Es la clave para crear experiencias fluidas,
-          memorables y eficaces.
-        </p>
-        <div className="uiux-beneficios-grid">
-          {[
-            '✅ Mejora la tasa de conversión',
-            '✅ Aumenta el tiempo de permanencia',
-            '✅ Reduce errores y frustración',
-            '✅ Refuerza tu identidad visual',
-            '✅ Mejora la accesibilidad y el SEO',
-          ].map((item, i) => (
-            <div key={i} className="beneficio-card" data-aos="fade-up" data-aos-delay={i * 100}>
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
+      <Puntos
+        id="uiux-beneficios"
+        titulo="¿Por qué el diseño UI/UX"
+        tono="es esencial?"
+        intro="El diseño UI/UX no es solo estética. Es la clave para crear experiencias fluidas, memorables y eficaces."
+        items={beneficios}
+      />
 
       {/* 🛠 Proceso */}
-      <section className="uiux-proceso">
-        <h2 className="titulo-impactante">🛠 Nuestro proceso de diseño UI/UX</h2>
-        <div className="uiux-timeline">
-          {[
-            '🎯 Brief de necesidades y análisis UX',
-            '📊 Wireframes y arquitectura',
-            '🎨 Diseño visual UI (Figma, Adobe XD)',
-            '🧪 Prototipado interactivo',
-            '🔍 Pruebas de usabilidad',
-            '🚀 Entrega optimizada para desarrollo',
-          ].map((step, i) => (
-            <div key={i} className="timeline-step" data-aos="zoom-in" data-aos-delay={i * 150}>
-              {step}
-            </div>
-          ))}
-        </div>
-      </section>
+      <Proceso id="uiux-proceso" titulo="Nuestro proceso" tono="de diseño UI/UX." pasos={pasos} />
 
       {/* 🖼 Galería UI/UX visual */}
-      <section className="uiux-portafolio">
-        <h2 className="titulo-impactante">🎨 Algunos proyectos que transformaron negocios</h2>
-        <div className="galeria-redisenos">
-          {[raizViva, brillanteEterno, beautyAntes, beautyDespues].map((img, i) => (
-            <a href={img} key={i} target="_blank" rel="noopener noreferrer">
-              <div className="proyecto-img" data-aos="fade-up" data-aos-delay={i * 100}>
-                <img src={img} alt={`Rediseño ${i + 1}`} />
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
+      <Galeria
+        id="uiux-proyectos"
+        titulo="Algunos proyectos"
+        tono="que transformaron negocios."
+        items={proyectos}
+        columnas={4}
+      />
 
       {/* 💡 Principios */}
-      <section className="uiux-principios">
-        <h2 className="titulo-impactante">💡 Diseño centrado en el usuario</h2>
-        <div className="principios-grid">
-          {[
-            'Jerarquía visual',
-            'Psicología del color',
-            'Tipografía legible',
-            'Accesibilidad (WCAG)',
-            'Diseño modular y responsive',
-            'Microinteracciones',
-          ].map((p, i) => (
-            <div key={i} className="principio-card" data-aos="fade-up">
-              {p}
-            </div>
-          ))}
-        </div>
-      </section>
+      <Puntos
+        id="uiux-principios"
+        titulo="Diseño centrado"
+        tono="en el usuario."
+        items={principios}
+      />
 
       {/* 🗣 Testimonios */}
-      <section className="uiux-testimonios">
-        <h2 className="titulo-impactante">🗣 Lo que dicen nuestros clientes</h2>
-        <div className="testimonio-card" data-aos="fade-right">
-          <p>
-            “Nuestra app se volvió mucho más clara e intuitiva. Las clientas entienden al instante
-            cómo usarla.”
-          </p>
-          <span>— Karla R., BeautyApp</span>
-        </div>
-        <div className="testimonio-card" data-aos="fade-left">
-          <p>
-            “Antes la gente se perdía. Hoy nos felicitan por lo fácil que es usar nuestro sistema.”
-          </p>
-          <span>— Pedro S., Gestión360</span>
-        </div>
-      </section>
+      <Citas
+        id="uiux-testimonios"
+        titulo="Lo que dicen"
+        tono="nuestros clientes."
+        items={testimonios}
+      />
 
       {/* ❓ FAQ */}
-      <section className="uiux-faq">
-        <h2 className="titulo-impactante">❓ Preguntas frecuentes</h2>
-        <details>
-          <summary>¿Puedo pedir solo el diseño sin desarrollo?</summary>
-          <p>
-            ¡Claro! Ofrecemos diseño como servicio independiente para que lo uses con cualquier
-            equipo de desarrollo.
-          </p>
-        </details>
-        <details>
-          <summary>¿Con qué herramientas trabajan?</summary>
-          <p>Figma, Adobe XD, Notion, Zeplin y más según el proyecto.</p>
-        </details>
-        <details>
-          <summary>¿Incluye tests de accesibilidad?</summary>
-          <p>Sí, aplicamos criterios WCAG para garantizar interfaces inclusivas.</p>
-        </details>
-        <details>
-          <summary>¿Puedo dar feedback durante el proceso?</summary>
-          <p>¡Por supuesto! Es clave para crear un producto alineado contigo.</p>
-        </details>
-      </section>
+      <Preguntas items={preguntas} />
 
       {/* 🔥 CTA Final */}
-      <section className="uiux-cta">
-        <h2 className="titulo-impactante">
-          Diseñemos una experiencia que tu cliente no olvide <br /> ¿Empezamos hoy?
-        </h2>
-        <div className="cta-buttons">
-          <a
-            href={`https://wa.me/${whatsapp}?text=${mensajeImpacto}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-principal"
-          >
-            Quiero una interfaz que impacte
-          </a>
-          <a
-            href="http://localhost:5173/agendar"
-            className="btn-secundario"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            📅 Agendar una asesoría Gratis
-          </a>
-        </div>
-      </section>
-    </section>
+      <CierreServicio
+        titulo="Diseñemos una experiencia que tu cliente no olvide."
+        tono="¿Empezamos hoy?"
+        acciones={
+          <>
+            <Accion href={whatsappUrl(MENSAJE_IMPACTO)} primaria>
+              Quiero una interfaz que impacte
+            </Accion>
+            <Accion to="/agendar">Agendar una asesoría gratis</Accion>
+          </>
+        }
+      />
+    </div>
   );
 }

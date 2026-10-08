@@ -1,65 +1,66 @@
-.elegirnos {
-  background-color: #0b0d1a;
-  padding: 80px 20px;
-  text-align: center;
-  color: white;
-}
-
-.elegirnos-title {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  margin-bottom: 50px;
-  font-weight: 700;
-}
-
-.lukbyte {
-  color: #00bfff;
-}
-
+/* Pilares: columnas separadas por una línea, sin tarjetas */
 .elegirnos-grid {
   display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  list-style: none;
 }
 
-.razon-card {
-  background: #101223;
-  border-radius: 20px;
-  padding: 30px 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  /* ✅ Borde degradado igual que el resto del sitio */
-  border: 2px solid transparent;
-  background-image: linear-gradient(#101223, #101223),
-                    linear-gradient(135deg, #00bfff, #ffaa00);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+.razon {
+  padding: clamp(26px, 3.2vw, 44px) clamp(16px, 2.4vw, 32px) 0;
 }
 
-
-.razon-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 16px rgba(0, 191, 255, 0.2);
+.razon + .razon {
+  border-left: 1px solid var(--line);
 }
 
-.razon-icon {
-  width: 55px;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 4px #00bfff);
+.razon svg {
+  color: var(--cyan);
 }
 
-.razon-card h3 {
-  font-size: 1.25rem;
-  color: #00bfff;
-  margin-bottom: 10px;
-  font-weight: 600;
+.razon h3 {
+  margin-block: 18px 8px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
-.razon-card p {
-  font-size: 0.95rem;
-  color: #ccc;
-  line-height: 1.6;
-  margin: 0 auto;
-  max-width: 280px;
+.razon p {
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+@media (max-width: 900px) {
+  .elegirnos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .razon {
+    padding-bottom: clamp(26px, 3.2vw, 44px);
+  }
+
+  .razon:nth-child(odd) {
+    border-left: none;
+  }
+
+  .razon:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .elegirnos-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .razon,
+  .razon + .razon {
+    padding-inline: 0;
+    border-left: none;
+  }
+
+  .razon + .razon {
+    border-top: 1px solid var(--line);
+  }
 }

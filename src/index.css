@@ -1,16 +1,51 @@
 /* =============================
    Estilos Globales - Lukbyte
+   Sistema "panal tecnológico"
    ============================= */
 
-/* Variables y configuración base */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Fondo y superficies */
+  --bg: #04060b;
+  --bg-2: #070b13;
+  --panel: #0a0f1a;
+
+  /* Líneas del panal */
+  --line: rgba(148, 190, 255, 0.12);
+  --line-2: rgba(148, 190, 255, 0.24);
+
+  /* Texto */
+  --text: #eef4ff;
+  --text-2: #a7b4cb;
+  --text-3: #7c8aa5;
+
+  /* Marca: azul cian. Acento: violeta eléctrico (reemplaza al amarillo) */
+  --cyan: #00bfff;
+  --cyan-hi: #7fdfff;
+  --cyan-ink: #00131c;
+  --violet: #8b6cff;
+  --violet-hi: #b6a4ff;
+
+  --font-display: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-label: 'Chakra Petch', 'Sora', system-ui, sans-serif;
+
+  --frame: 1240px;
+  --gutter: clamp(12px, 4vw, 48px);
+  --pad: clamp(16px, 3.4vw, 48px);
+  --nav-h: 64px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Celda hexagonal de punta arriba y su patrón repetible */
+  --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  --comb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20.78' height='36' viewBox='0 0 20.78 36'%3E%3Cpath d='M10.39 0L20.78 6v12L10.39 24 0 18V6z M10.39 24v12' fill='none' stroke='%2394beff' stroke-opacity='.17'/%3E%3C/svg%3E");
+  --hex-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='12' viewBox='0 0 11 12'%3E%3Cpath d='M5.5 .8l4.5 2.6v5.2L5.5 11.2 1 8.6V3.4z' fill='%2304060b' stroke='%2394beff' stroke-opacity='.55'/%3E%3C/svg%3E");
+
+  font-family: var(--font-display);
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0a0e1f;
+  color-scheme: dark;
+  color: var(--text);
+  background-color: var(--bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,15 +60,26 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-padding-top: var(--nav-h);
+  scrollbar-color: var(--line-2) var(--bg);
+  scrollbar-width: thin;
+}
+
+::selection {
+  background: rgba(0, 191, 255, 0.32);
+  color: #fff;
+}
+
 /* Enlaces */
 a {
   font-weight: 500;
-  color: #00aaff;
+  color: var(--cyan);
   text-decoration: none;
 }
 
 a:hover {
-  color: #66ccff;
+  color: var(--cyan-hi);
 }
 
 /* Body general */
@@ -41,6 +87,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: var(--bg);
+  caret-color: var(--cyan);
 }
 
 /* Titulares */
@@ -54,7 +102,7 @@ p {
   line-height: 1.6;
 }
 
-/* Botones base */
+/* Botones base (los heredan las páginas de servicio) */
 button {
   border-radius: 8px;
   border: none;
@@ -73,23 +121,332 @@ button:hover {
   color: #000;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 3px solid #00aaff;
+:focus-visible {
+  outline: 2px solid var(--cyan-hi);
+  outline-offset: 3px;
 }
 
-/* Modo claro (opcional, puedes quitarlo si solo usas modo oscuro) */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+/* =============================
+   Estructura del panal
+   ============================= */
 
-  a:hover {
-    color: #005577;
-  }
+/* Columna central con rieles verticales */
+.frame {
+  position: relative;
+  width: min(100% - 2 * var(--gutter), var(--frame));
+  margin-inline: auto;
+}
 
-  button {
-    background-color: #f0f0f0;
+/* Cada sección abre una fila: línea superior y celdas marcando los cruces */
+.section {
+  position: relative;
+  border-top: 1px solid var(--line);
+  background-color: var(--bg);
+}
+
+.section > .frame {
+  border-inline: 1px solid var(--line);
+  padding: clamp(72px, 9vw, 132px) var(--pad);
+}
+
+.section > .frame::before,
+.section > .frame::after {
+  content: '';
+  position: absolute;
+  top: -6.5px;
+  width: 11px;
+  height: 12px;
+  background: var(--hex-mark) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.section > .frame::before {
+  left: -6px;
+}
+
+.section > .frame::after {
+  right: -6px;
+}
+
+/* Banda de panal entre bloques */
+.section--band > .frame {
+  height: 46px;
+  padding: 0;
+  background-image: var(--comb);
+  background-position: center;
+  -webkit-mask-image: linear-gradient(90deg, #000, rgba(0, 0, 0, 0.35) 50%, #000);
+  mask-image: linear-gradient(90deg, #000, rgba(0, 0, 0, 0.35) 50%, #000);
+}
+
+/* Encabezado de sección: titular en dos tonos + párrafo a la derecha */
+.sec-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(20px, 5vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(40px, 5.5vw, 76px);
+}
+
+.sec-head--solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.1vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.h-display .tone {
+  display: block;
+  color: var(--text-3);
+}
+
+.lede {
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* Etiqueta técnica: datos, estados, categorías */
+.label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Botones píldora */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.btn svg {
+  flex: none;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary,
+.btn--primary:hover {
+  color: var(--cyan-ink);
+}
+
+.btn--primary {
+  background-color: var(--cyan);
+}
+
+.btn--primary:hover {
+  background-color: var(--cyan-hi);
+}
+
+.btn--ghost,
+.btn--ghost:hover {
+  color: var(--text);
+}
+
+.btn--ghost {
+  background-color: rgba(4, 6, 11, 0.5);
+  border-color: var(--line-2);
+}
+
+.btn--ghost:hover {
+  background-color: rgba(0, 191, 255, 0.1);
+  border-color: var(--cyan);
+}
+
+/* Enlace con flecha */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.link-arrow svg {
+  transition: transform 0.35s var(--ease-out);
+}
+
+.link-arrow:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+  .sec-head {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
   }
+}
+
+/* En pantallas angostas un botón largo parte en dos líneas en vez de desbordar */
+@media (max-width: 480px) {
+  .btn {
+    max-width: 100%;
+    padding-block: 12px;
+    line-height: 1.35;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================
+   Piezas compartidas del panal
+   ============================= */
+
+/* Emblema: un logo dentro de su celda */
+.hex-emblema {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--s, 72px);
+  aspect-ratio: 1 / 1.1547;
+  clip-path: var(--hex);
+  background: var(--line-2);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.hex-emblema::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  clip-path: var(--hex);
+  background: var(--placa, var(--panel));
+}
+
+.hex-emblema img {
+  position: relative;
+  width: 76%;
+  height: 60%;
+  object-fit: contain;
+}
+
+/* Estado de un proyecto */
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--text-2);
+}
+
+.estado::before {
+  content: '';
+  width: 7px;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: var(--hex);
+  background: currentColor;
+}
+
+.estado--mercado {
+  color: var(--cyan);
+}
+
+.estado--mercado::before {
+  animation: latido 2.4s ease-in-out infinite;
+}
+
+.estado--en-curso {
+  color: var(--violet-hi);
+}
+
+.estado--corporativo {
+  color: var(--text);
+}
+
+.estado--finalizado {
+  color: var(--text-3);
+}
+
+@keyframes latido {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+/* Etiquetas de tecnología */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.chips li {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  color: var(--text-2);
 }

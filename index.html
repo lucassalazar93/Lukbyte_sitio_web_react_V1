@@ -1,24 +1,21 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="cargando">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- ✅ Título y descripción SEO -->
-    <title>Lukbyte | Diseño web estratégico que convierte visitantes en clientes</title>
+    <title>Lukbyte | Software a medida que crece con tu empresa</title>
     <meta
       name="description"
-      content="En Lukbyte diseñamos sitios web estratégicos que generan resultados reales. Descubre cómo transformar tu página en una herramienta de ventas. Reclama gratis nuestra guía con las 5 claves invisibles que usan las marcas exitosas."
+      content="Desarrollo de software a medida, aplicaciones web, automatización y APIs. En Lukbyte combinamos arquitectura limpia, inteligencia artificial y experiencia de usuario para crear productos digitales que generan resultados reales."
     />
 
     <!-- ✅ Open Graph para redes sociales (Facebook, WhatsApp, LinkedIn) -->
-    <meta
-      property="og:title"
-      content="Lukbyte | Diseño web estratégico que convierte visitantes en clientes"
-    />
+    <meta property="og:title" content="Lukbyte | Software a medida que crece con tu empresa" />
     <meta
       property="og:description"
-      content="Descubre cómo transformar tu web en una herramienta de ventas. Reclama gratis nuestra guía con las 5 claves invisibles que usan las marcas que sí venden."
+      content="Desarrollo de software a medida, aplicaciones web, automatización y APIs. Productos digitales que generan resultados reales."
     />
     <meta
       property="og:image"
@@ -29,13 +26,10 @@
 
     <!-- ✅ Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Lukbyte | Diseño web estratégico que convierte visitantes en clientes"
-    />
+    <meta name="twitter:title" content="Lukbyte | Software a medida que crece con tu empresa" />
     <meta
       name="twitter:description"
-      content="Transforma tu web en una herramienta de ventas. Reclama tu guía gratuita con las 5 claves invisibles que usan las marcas que sí venden."
+      content="Desarrollo de software a medida, aplicaciones web, automatización y APIs. Productos digitales que generan resultados reales."
     />
     <meta
       name="twitter:image"
@@ -43,16 +37,435 @@
     />
 
     <!-- ✅ Favicon y Apple Touch Icon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- ✅ Fuente Poppins -->
+    <meta name="theme-color" content="#04060b" />
+    <link rel="preload" as="image" href="/abeja-tech.webp" type="image/webp" />
+
+    <!-- ✅ Fuentes: Sora (titulares y texto), Chakra Petch (etiquetas y botones), Poppins (páginas heredadas) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=Poppins:wght@600;700;800;900&family=Sora:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- ✅ Pantalla de carga: va en línea para pintarse antes de que llegue el JavaScript -->
+    <style>
+      html.cargando {
+        overflow: hidden;
+      }
+
+      .carga {
+        --w: clamp(34px, 5.4vw, 60px);
+        --h: calc(var(--w) * 1.1547);
+        --g: clamp(3px, 0.45vw, 6px);
+        --dx: calc(var(--w) + var(--g));
+        --dy: calc(var(--h) * 0.75 + var(--g) * 0.866);
+        --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: grid;
+        place-items: center;
+        background: #04060b;
+        color: #eef4ff;
+        font-family:
+          'Sora',
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        /* Hexágono mayor que la pantalla: al salir se cierra hacia el centro */
+        clip-path: polygon(50% -75%, 175% 12%, 175% 88%, 50% 175%, -75% 88%, -75% 12%);
+      }
+
+      .carga__centro {
+        display: grid;
+        justify-items: center;
+        gap: clamp(16px, 3vh, 28px);
+      }
+
+      .carga__panal {
+        position: relative;
+        width: calc(var(--w) * 7 + var(--g) * 6);
+        height: calc(var(--dy) * 6 + var(--h));
+        filter: drop-shadow(0 30px 44px rgba(0, 110, 255, 0.3));
+      }
+
+      /* Cada celda se enciende al construirse y luego queda en reposo */
+      .carga__celda {
+        position: absolute;
+        left: calc(50% + (var(--q) + var(--r) / 2) * var(--dx) - var(--w) / 2);
+        top: calc(50% + var(--r) * var(--dy) - var(--h) / 2);
+        width: var(--w);
+        height: var(--h);
+        clip-path: var(--hex);
+        background: rgba(148, 190, 255, 0.24);
+        animation:
+          carga-celda 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--t) both,
+          carga-onda 2.8s ease-in-out calc(var(--t) + 1.5s) infinite;
+      }
+
+      /* Algunas celdas laten en violeta: el acento de la marca */
+      .carga__celda--v {
+        --onda: rgba(139, 108, 255, 0.85);
+      }
+
+      .carga__celda::before {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        clip-path: var(--hex);
+        background: #0a0f1a;
+        animation: carga-fondo 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--t) both;
+      }
+
+      .carga__celda--nucleo {
+        display: grid;
+        place-items: center;
+        background: #00bfff;
+        animation-name: carga-nucleo;
+      }
+
+      .carga__celda--nucleo::before {
+        background: #06212f;
+        animation: none;
+      }
+
+      .carga__celda--nucleo svg {
+        position: relative;
+        width: 46%;
+        height: auto;
+        fill: none;
+        stroke: #00bfff;
+        stroke-width: 1.3;
+        stroke-linejoin: round;
+      }
+
+      /* Las abejas llegan desde fuera de la pantalla a su celda */
+      .carga__abeja {
+        position: absolute;
+        left: calc(50% + (var(--q) + var(--r) / 2) * var(--dx) - var(--w) * 0.32);
+        top: calc(50% + var(--r) * var(--dy) - var(--h) * 0.66);
+        z-index: 2;
+        width: calc(var(--w) * 0.64);
+        animation: carga-vuelo 1.35s cubic-bezier(0.2, 0.7, 0.2, 1) var(--t) both;
+      }
+
+      .carga__abeja img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 6px 8px rgba(0, 150, 255, 0.5));
+        animation: carga-aleteo 1.3s ease-in-out infinite;
+      }
+
+      .carga__abeja--izq img {
+        animation-name: carga-aleteo-izq;
+      }
+
+      .carga__marca {
+        display: flex;
+        align-items: center;
+        font-size: clamp(1.75rem, 4.4vw, 2.5rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        animation: carga-sube 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+      }
+
+      .carga__marca b {
+        font-weight: 600;
+        color: #00bfff;
+      }
+
+      .carga__pie {
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+        animation: carga-sube 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+      }
+
+      .carga__barra {
+        width: min(220px, 52vw);
+        height: 2px;
+        overflow: hidden;
+        border-radius: 2px;
+        background: rgba(148, 190, 255, 0.16);
+      }
+
+      .carga__barra span {
+        display: block;
+        height: 100%;
+        background: #00bfff;
+        transform-origin: left;
+        animation: carga-avance 3.2s cubic-bezier(0.3, 0.1, 0.2, 1) 0.2s both;
+      }
+
+      .carga.is-lista .carga__barra span {
+        animation: none;
+        transform: scaleX(1);
+        transition: transform 0.25s ease-out;
+      }
+
+      .carga__texto {
+        margin: 0;
+        font-family: 'Chakra Petch', 'Sora', system-ui, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #a7b4cb;
+      }
+
+      /* Recargas en la misma sesión: la misma secuencia al doble de velocidad */
+      .carga--breve .carga__celda {
+        animation-delay: calc(var(--t) * 0.45), calc(var(--t) * 0.45 + 1s);
+      }
+
+      .carga--breve .carga__celda::before,
+      .carga--breve .carga__abeja {
+        animation-delay: calc(var(--t) * 0.45);
+      }
+
+      .carga--breve .carga__abeja {
+        animation-duration: 0.9s;
+      }
+
+      .carga--breve .carga__marca {
+        animation-delay: 0.35s;
+      }
+
+      .carga--breve .carga__pie {
+        animation-delay: 0.45s;
+      }
+
+      .carga--breve .carga__barra span {
+        animation-duration: 1.3s;
+        animation-delay: 0.1s;
+      }
+
+      .carga.is-saliendo {
+        pointer-events: none;
+        animation: carga-sale 0.8s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes carga-celda {
+        0% {
+          opacity: 0;
+          transform: scale(0.55);
+          background: rgba(148, 190, 255, 0.1);
+        }
+        35% {
+          opacity: 1;
+          transform: scale(1.05);
+          background: #00bfff;
+        }
+        100% {
+          opacity: 1;
+          transform: none;
+          background: rgba(148, 190, 255, 0.24);
+        }
+      }
+
+      /* Con el panal ya armado, una onda sigue recorriéndolo mientras carga */
+      @keyframes carga-onda {
+        0%,
+        26%,
+        100% {
+          background: rgba(148, 190, 255, 0.24);
+        }
+        10% {
+          background: var(--onda, rgba(0, 191, 255, 0.8));
+        }
+      }
+
+      @keyframes carga-fondo {
+        0%,
+        30% {
+          background: #04060b;
+        }
+        36% {
+          background: #06212f;
+        }
+        100% {
+          background: #0a0f1a;
+        }
+      }
+
+      @keyframes carga-nucleo {
+        from {
+          opacity: 0;
+          transform: scale(0.4) rotate(-60deg);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes carga-vuelo {
+        from {
+          opacity: 0;
+          transform: translate(var(--sx), var(--sy)) scale(0.5);
+        }
+        25% {
+          opacity: 1;
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes carga-aleteo {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(3deg);
+        }
+      }
+
+      @keyframes carga-aleteo-izq {
+        0%,
+        100% {
+          transform: scaleX(-1) translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: scaleX(-1) translateY(-5px) rotate(3deg);
+        }
+      }
+
+      @keyframes carga-sube {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+      }
+
+      @keyframes carga-avance {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(0.92);
+        }
+      }
+
+      @keyframes carga-sale {
+        to {
+          clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .carga,
+        .carga *,
+        .carga *::before {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0s !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- Pantalla de carga: abejas que llegan a construir el panal alrededor del logo -->
+    <div class="carga" id="carga" role="status" aria-label="Cargando Lukbyte">
+      <div class="carga__centro">
+        <div class="carga__panal" id="carga-panal" aria-hidden="true">
+          <span class="carga__celda carga__celda--nucleo" style="--q: 0; --r: 0; --t: 0.05s">
+            <svg viewBox="0 0 22 24">
+              <path d="M11 1.2l9 5.2v11.2l-9 5.2-9-5.2V6.4z" />
+              <path d="M11 7.4l4 2.3v4.6l-4 2.3-4-2.3V9.7z" />
+            </svg>
+          </span>
+
+          <span class="carga__abeja" style="--q: -2; --r: -1; --sx: -60vw; --sy: -34vh; --t: 0.2s">
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+          <span
+            class="carga__abeja carga__abeja--izq"
+            style="--q: 1; --r: -3; --sx: 44vw; --sy: -46vh; --t: 0.38s"
+          >
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+          <span
+            class="carga__abeja carga__abeja--izq"
+            style="--q: 3; --r: -1; --sx: 62vw; --sy: -8vh; --t: 0.56s"
+          >
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+          <span
+            class="carga__abeja carga__abeja--izq"
+            style="--q: 1; --r: 2; --sx: 58vw; --sy: 40vh; --t: 0.74s"
+          >
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+          <span class="carga__abeja" style="--q: -2; --r: 3; --sx: -40vw; --sy: 48vh; --t: 0.92s">
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+          <span class="carga__abeja" style="--q: -3; --r: 1; --sx: -64vw; --sy: 6vh; --t: 1.1s">
+            <img src="/abeja-tech.webp" alt="" />
+          </span>
+        </div>
+
+        <div class="carga__marca" aria-hidden="true">Luk<b>byte</b></div>
+
+        <div class="carga__pie" aria-hidden="true">
+          <div class="carga__barra"><span></span></div>
+          <p class="carga__texto">Construyendo el panal</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var carga = document.getElementById('carga');
+        carga.dataset.inicio = performance.now();
+
+        // Solo la primera carga de la sesión espera a que termine la secuencia
+        try {
+          if (sessionStorage.getItem('lukbyte:carga')) carga.classList.add('carga--breve');
+          sessionStorage.setItem('lukbyte:carga', '1');
+        } catch (e) {}
+
+        // Tres anillos de celdas que se levantan del centro hacia afuera
+        var R = 3;
+        var celdas = '';
+        for (var r = -R; r <= R; r++) {
+          for (var q = -R; q <= R; q++) {
+            var anillo = Math.max(Math.abs(q), Math.abs(r), Math.abs(q + r));
+            if (anillo === 0 || anillo > R) continue;
+            var vuelta = (Math.atan2(r, q + r / 2) + Math.PI) / (2 * Math.PI);
+            var t = (0.12 + anillo * 0.3 + vuelta * 0.4).toFixed(2);
+            celdas +=
+              '<span class="carga__celda' +
+              ((q * 3 + r * 5 + 21) % 7 === 0 ? ' carga__celda--v' : '') +
+              '" style="--q:' +
+              q +
+              ';--r:' +
+              r +
+              ';--t:' +
+              t +
+              's"></span>';
+          }
+        }
+        document.getElementById('carga-panal').insertAdjacentHTML('afterbegin', celdas);
+
+        // Si la aplicación no llega a montar, la pantalla no se queda para siempre
+        setTimeout(function () {
+          if (!carga.isConnected) return;
+          document.documentElement.classList.remove('cargando');
+          carga.remove();
+        }, 12000);
+      })();
+    </script>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

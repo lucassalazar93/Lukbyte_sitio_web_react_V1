@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToSection from './utils/ScrollToSection';
+import { retirarPantallaCarga } from './utils/pantallaCarga';
 
 import HotjarInitializer from './utils/HotjarInitializer';
 
 import AbejaSeguidora from './components/AbejaSeguidora/AbejaSeguidora';
-import CodyChat from './components/CodyChat';
+// import CodyChat from './components/CodyChat';
 
 import Navbar from './components/Navbar/Navbar';
 
@@ -23,6 +24,7 @@ import Servicios from './components/Servicios/Servicios';
 import Elegirnos from './components/Elegirnos/Elegirnos';
 import Proyectos from './components/Proyectos/Proyectos';
 import Testimonios from './components/Testimonios/Testimonios';
+import BandaPanal from './components/Panal/BandaPanal';
 
 import TerminosCondiciones from './pages/TerminosCondiciones';
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad';
@@ -36,32 +38,24 @@ function Home() {
     <>
       <ScrollToSection />
 
-      <section id="inicio">
-        <Hero />
-      </section>
-
+      <Hero />
       <CintaLogos />
-
-      <section id="servicios">
-        <Servicios />
-      </section>
-
+      <Servicios />
+      <BandaPanal />
       <Elegirnos />
-
-      <section id="proyectos">
-        <Proyectos />
-      </section>
-
+      <Proyectos />
+      <BandaPanal />
       <Testimonios />
-
-      <section id="contacto">
-        <div style={{ height: '1px' }} />
-      </section>
     </>
   );
 }
 
 function App() {
+  // La pantalla de carga vive en index.html; se retira cuando la app ya pintó
+  useEffect(() => {
+    retirarPantallaCarga();
+  }, []);
+
   return (
     <Router>
       <HotjarInitializer />

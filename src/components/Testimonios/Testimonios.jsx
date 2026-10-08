@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import EncabezadoSeccion from '../Panal/EncabezadoSeccion';
 import './Testimonios.css';
 
 // ✅ Importa las imágenes correctamente desde assets
@@ -40,38 +40,42 @@ const clientes = [
 
 export default function Testimonios() {
   return (
-    <section className="testimonios" id="testimonios">
-      <h2 className="testimonios-title">
-        Testimonios <span className="lukbyte">Con Impacto Real</span>
-      </h2>
+    <section className="section testimonios" id="testimonios" aria-labelledby="testimonios-titulo">
+      <div className="frame">
+        <EncabezadoSeccion
+          id="testimonios-titulo"
+          titulo="Testimonios."
+          tono="Con impacto real."
+        />
 
-      <div className="testimonios-grid">
-        {clientes.map((cli, i) => (
-          <motion.div
-            className="testimonial-card"
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="cliente-header">
-              <img src={cli.img} alt={cli.nombre} className="cliente-foto" />
-              <div className="cliente-meta">
-                <h3>{cli.nombre}</h3>
-                <span className="cliente-cargo">{cli.cargo}</span>
+        <div className="testimonios-grid">
+          {clientes.map((cli) => (
+            <figure className="testimonio-celda" key={cli.nombre}>
+              <div
+                className="testimonio__nota"
+                role="img"
+                aria-label={`${cli.rating} de 5`}
+              >
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span key={i} className={i < cli.rating ? 'is-llena' : undefined} />
+                ))}
               </div>
-            </div>
 
-            <p className="testimonial-text">"{cli.texto}"</p>
+              <blockquote>
+                <p>{cli.texto}</p>
+              </blockquote>
 
-            <div className="proyecto-tag">
-              <small>{cli.proyecto}</small>
-            </div>
-
-            <div className="estrellas">{'★'.repeat(cli.rating)}</div>
-          </motion.div>
-        ))}
+              <figcaption>
+                <img src={cli.img} alt="" className="cliente-foto" loading="lazy" />
+                <div className="cliente-meta">
+                  <strong>{cli.nombre}</strong>
+                  <span>{cli.cargo}</span>
+                </div>
+                <small className="label proyecto-tag">{cli.proyecto}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
   );
