@@ -128,7 +128,8 @@ export const proyectos = [
     descripcion: 'Tienda virtual de repostería gourmet.',
     detalles: ['JavaScript (ES Modules)', 'Arquitectura por capas', 'WhatsApp', 'Google Maps'],
     estado: 'Finalizado',
-    enlace: 'https://nore-quintero.vercel.app/',
+    // Enlace "Ver en vivo" oculto temporalmente; para volver a mostrarlo, quita el comentario
+    // enlace: 'https://nore-quintero.vercel.app/',
   },
   {
     id: 'pqrs',
