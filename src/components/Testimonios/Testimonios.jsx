@@ -7,6 +7,7 @@ import './Testimonios.css';
 import noreImg from '../../assets/clientes/cliente1.png';
 import alimentImg from '../../assets/clientes/cliente2.png';
 import pqrsImg from '../../assets/clientes/cliente3.png';
+import geralImg from '../../assets/clientes/cliente4.png';
 
 const clientes = [
   {
@@ -15,7 +16,7 @@ const clientes = [
     texto:
       'Antes de MandiPOS, todo era en papel. Los domicilios se perdían, la cocina estaba desordenada y la administración era difícil de seguir. Hoy, en Mandingas La 37 y Mundo Mandingas, llevamos 8.281 pedidos entregados entre julio y octubre de 2026, con cada pedido registrado desde la caja hasta la cocina y el domicilio.',
     proyecto: 'Producto: MandiPOS',
-    img: null,
+    img: geralImg,
     rating: 5,
   },
   {
