@@ -10,6 +10,15 @@ import pqrsImg from '../../assets/clientes/cliente3.png';
 
 const clientes = [
   {
+    nombre: 'Geral',
+    cargo: 'Propietaria, Mandingas La 37 y Mundo Mandingas',
+    texto:
+      'Antes de MandiPOS, todo era en papel. Los domicilios se perdían, la cocina estaba desordenada y la administración era difícil de seguir. Hoy, en Mandingas La 37 y Mundo Mandingas, llevamos 8.281 pedidos entregados entre julio y octubre de 2026, con cada pedido registrado desde la caja hasta la cocina y el domicilio.',
+    proyecto: 'Producto: MandiPOS',
+    img: null,
+    rating: 5,
+  },
+  {
     nombre: 'Nore Quintero',
     cargo: 'Emprendedora & Consultora Gastronómica',
     texto:
@@ -66,7 +75,13 @@ export default function Testimonios() {
               </blockquote>
 
               <figcaption>
-                <img src={cli.img} alt="" className="cliente-foto" loading="lazy" />
+                {cli.img ? (
+                  <img src={cli.img} alt="" className="cliente-foto" loading="lazy" />
+                ) : (
+                  <span className="cliente-foto cliente-iniciales" aria-hidden="true">
+                    {cli.nombre.charAt(0)}
+                  </span>
+                )}
                 <div className="cliente-meta">
                   <strong>{cli.nombre}</strong>
                   <span>{cli.cargo}</span>

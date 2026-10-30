@@ -1,0 +1,58 @@
+/* Cómo trabajamos: mock primero, precio después por WhatsApp */
+.proceso-pasos {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.proceso-paso {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid rgba(148, 190, 255, 0.18);
+  border-radius: 16px;
+  background: rgba(10, 15, 26, 0.6);
+}
+
+.proceso-numero {
+  display: inline-block;
+  font-family: 'Chakra Petch', 'Sora', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #00bfff;
+}
+
+.proceso-paso h3 {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.proceso-paso p {
+  margin: 0;
+  color: #a7b4cb;
+  line-height: 1.5;
+}
+
+.proceso-accion {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.proceso-boton {
+  display: inline-block;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  background: #00bfff;
+  color: #04060b;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.proceso-boton:hover,
+.proceso-boton:focus-visible {
+  background: #5fd6ff;
+}

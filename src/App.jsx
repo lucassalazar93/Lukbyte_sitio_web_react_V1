@@ -22,6 +22,7 @@ import Hero from './components/Hero';
 import CintaLogos from './components/CintaLogos/CintaLogos';
 import Servicios from './components/Servicios/Servicios';
 import Elegirnos from './components/Elegirnos/Elegirnos';
+import ComoTrabajamos from './components/Proceso/ComoTrabajamos';
 import Proyectos from './components/Proyectos/Proyectos';
 import Testimonios from './components/Testimonios/Testimonios';
 import BandaPanal from './components/Panal/BandaPanal';
@@ -43,6 +44,7 @@ function Home() {
       <Servicios />
       <BandaPanal />
       <Elegirnos />
+      <ComoTrabajamos />
       <Proyectos />
       <BandaPanal />
       <Testimonios />

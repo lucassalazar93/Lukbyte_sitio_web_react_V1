@@ -4,7 +4,7 @@ export const GITHUB_URL = 'https://github.com/lucassalazar93';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-salazar-fullstack/';
 export const INSTAGRAM_URL = 'https://www.instagram.com/soylucassalazar/';
 
-export const EMAIL = 'lukbytedigital@gmail.com';
+export const EMAIL = 'lucassalazar.work93@gmail.com';
 export const TELEFONO = '+57 315 039 9322';
 export const CIUDAD = 'Medellín, Colombia';
 

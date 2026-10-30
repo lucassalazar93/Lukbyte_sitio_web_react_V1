@@ -100,3 +100,12 @@
     padding-bottom: 0;
   }
 }
+
+/* Iniciales cuando no hay foto del cliente */
+.cliente-iniciales {
+  display: inline-grid;
+  place-items: center;
+  background: rgba(0, 191, 255, 0.15);
+  color: #00bfff;
+  font-weight: 700;
+}
