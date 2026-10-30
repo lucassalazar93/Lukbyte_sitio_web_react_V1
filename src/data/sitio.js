@@ -1,8 +1,8 @@
 /* ─── Datos compartidos con el portafolio ─── */
 export const PORTAFOLIO_URL = 'https://lucas-salazar-portfolio.vercel.app/';
 export const GITHUB_URL = 'https://github.com/lucassalazar93';
-export const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-salazar-722b79319/';
-export const INSTAGRAM_URL = 'https://www.instagram.com/soylukassalazar/';
+export const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-salazar-fullstack/';
+export const INSTAGRAM_URL = 'https://www.instagram.com/soylucassalazar/';
 
 export const EMAIL = 'lukbytedigital@gmail.com';
 export const TELEFONO = '+57 315 039 9322';
