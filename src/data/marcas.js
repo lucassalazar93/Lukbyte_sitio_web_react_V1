@@ -4,6 +4,7 @@ import crystal from '../assets/portafolio/marcas/crystal.webp';
 import galax from '../assets/portafolio/marcas/galax.webp';
 import babyFresh from '../assets/portafolio/marcas/baby-fresh.webp';
 import lukasExpress from '../assets/portafolio/marcas/lukas-express.webp';
+import equinox from '../assets/portafolio/marcas/equinox.webp';
 import primotos from '../assets/portafolio/proyectos/primotos.webp';
 import elvore from '../assets/portafolio/proyectos/elvore.webp';
 import noreQuintero from '../assets/portafolio/proyectos/sabor-a-felicidad.webp';
@@ -27,4 +28,5 @@ export const marcas = [
   { nombre: 'Baby Fresh', logo: babyFresh },
   { nombre: 'Soy Arte', logo: soyArte },
   { nombre: 'Lukas Express', logo: lukasExpress },
+  { nombre: 'Industrias Equinox Colombia', logo: equinox },
 ];
