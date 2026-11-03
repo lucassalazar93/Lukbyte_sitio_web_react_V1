@@ -434,6 +434,21 @@ button:hover {
   }
 }
 
+/* Contador: la reserva y la cifra comparten celda, manda el ancho del valor final */
+.contador {
+  display: inline-grid;
+  font-variant-numeric: tabular-nums;
+}
+
+.contador__reserva,
+.contador__cifra {
+  grid-area: 1 / 1;
+}
+
+.contador__reserva {
+  visibility: hidden;
+}
+
 /* Etiquetas de tecnología */
 .chips {
   display: flex;

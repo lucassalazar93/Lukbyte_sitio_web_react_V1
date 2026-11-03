@@ -64,6 +64,35 @@
   margin-bottom: clamp(20px, 2.4vw, 30px);
 }
 
+/* Sello de premio sobre el título */
+.proyecto__premio {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 191, 255, 0.4);
+  border-radius: 999px;
+  background-color: rgba(0, 191, 255, 0.08);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--cyan-hi);
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+.proyecto__premio:hover {
+  border-color: var(--cyan);
+  background-color: rgba(0, 191, 255, 0.16);
+  color: var(--cyan-hi);
+}
+
 .proyecto h3 {
   font-size: clamp(1.25rem, 1.9vw, 1.5rem);
   font-weight: 500;
@@ -92,6 +121,31 @@
   border-left: 1px solid var(--cyan);
   font-size: 0.875rem;
   color: var(--text);
+}
+
+/* Cifra del cliente que sube al entrar en pantalla */
+.proyecto__cifra {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.proyecto__cifra strong {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cyan);
+}
+
+.proyecto__cifra-mas {
+  margin-left: 0.06em;
+  color: var(--cyan-hi);
+}
+
+.proyecto__cifra .label {
+  color: var(--text-3);
 }
 
 .proyecto__flujo {

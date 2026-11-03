@@ -1,0 +1,126 @@
+/* ───── Premios INNOVA ─────
+   Misma rejilla de líneas que Proyectos: las celdas se tocan. */
+.premios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  list-style: none;
+}
+
+.premio {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* El primer puesto lleva la luz de la fila principal */
+.premio--primero {
+  background-image: linear-gradient(180deg, rgba(0, 191, 255, 0.05), transparent 60%);
+}
+
+.premio__foto {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.premio__foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.premio:hover .premio__foto img {
+  transform: scale(1.03);
+}
+
+.premio__cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(22px, 2.8vw, 36px);
+}
+
+.premio__puesto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--cyan);
+}
+
+.premio__puesto span {
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.premio:not(.premio--primero) .premio__puesto {
+  color: var(--violet-hi);
+}
+
+.premio h3 {
+  margin-top: 14px;
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.premio__desc {
+  max-width: 52ch;
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+.premio .chips {
+  margin-top: 18px;
+}
+
+.premio__monto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-top: auto;
+  padding-top: clamp(22px, 2.6vw, 30px);
+}
+
+.premio__monto .label {
+  flex-basis: 100%;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+}
+
+.premio__monto strong {
+  font-size: clamp(1.875rem, 3.2vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.premio__moneda {
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+@media (max-width: 720px) {
+  .premios-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

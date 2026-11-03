@@ -24,6 +24,7 @@ import Servicios from './components/Servicios/Servicios';
 import Elegirnos from './components/Elegirnos/Elegirnos';
 import ComoTrabajamos from './components/Proceso/ComoTrabajamos';
 import Proyectos from './components/Proyectos/Proyectos';
+import Premios from './components/Premios/Premios';
 import Testimonios from './components/Testimonios/Testimonios';
 import BandaPanal from './components/Panal/BandaPanal';
 
@@ -46,6 +47,7 @@ function Home() {
       <Elegirnos />
       <ComoTrabajamos />
       <Proyectos />
+      <Premios />
       <BandaPanal />
       <Testimonios />
     </>

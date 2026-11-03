@@ -18,7 +18,17 @@ import elvore from '../../assets/portafolio/proyectos/elvore.webp';
    destacado: celda grande del panal (en este orden).
    placa: color de fondo del emblema cuando el logo trae fondo propio.
    enlace: sitio público, muestra el enlace "Ver en vivo".
+   cifra: número que sube desde cero al entrar en pantalla;
+   sale del informe ejecutivo del cliente, actualízala con cada informe.
    flujo: pasos de la arquitectura, se dibujan como una línea. */
+
+/* MandiPOS y Quick Flow operan en pareja en Mandingas: mismo periodo.
+   Pedidos: Informe ejecutivo MandiPOS Mandingas, julio a octubre de 2026.
+   Domicilios: dato de Lucas para Quick Flow. */
+const PEDIDOS_MANDINGAS = 8627;
+const DOMICILIOS_MANDINGAS = 2653;
+const PERIODO_MANDINGAS = 'julio a octubre de 2026';
+
 export const proyectos = [
   {
     id: 'mandipos',
@@ -28,6 +38,10 @@ export const proyectos = [
     descripcion:
       'Ecosistema para restaurantes ya en operación: POS, app de domicilios, catálogo para clientes y un robot que controla los sistemas de impresión.',
     nota: 'En operación en dos sedes: Mandingas La 37 y Mundo Mandingas.',
+    cifra: {
+      valor: PEDIDOS_MANDINGAS,
+      etiqueta: `Pedidos entregados · ${PERIODO_MANDINGAS}`,
+    },
     detalles: ['Next.js', 'NestJS', 'PostgreSQL', 'Prisma', 'Multi-tenant', 'Tiempo real'],
     estado: 'En el mercado',
     enlace: 'https://pos.mandingas.online',
@@ -40,6 +54,10 @@ export const proyectos = [
     bajada: 'Catálogos inteligentes y geolocalización',
     descripcion:
       'Recuerda los datos de tus clientes, recomienda los productos más vendidos y sugiere adicionales. Cotiza domicilios por zonas y envía el pedido a WhatsApp o directo al POS.',
+    cifra: {
+      valor: DOMICILIOS_MANDINGAS,
+      etiqueta: `Domicilios entregados · ${PERIODO_MANDINGAS}`,
+    },
     detalles: [
       'Catálogo inteligente',
       'Geolocalización',

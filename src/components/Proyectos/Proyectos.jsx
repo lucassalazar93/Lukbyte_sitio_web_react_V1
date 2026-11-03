@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PiArrowRightBold, PiArrowUpRightBold } from 'react-icons/pi';
+import { PiArrowRightBold, PiArrowUpRightBold, PiTrophyBold } from 'react-icons/pi';
 import EncabezadoSeccion from '../Panal/EncabezadoSeccion';
 import AbejaFlotante from '../Panal/AbejaFlotante';
+import Contador from '../Panal/Contador';
 import { PORTAFOLIO_URL } from '../../data/sitio';
+import { premioDeProyecto } from '../../data/premios';
 import { claseEstado, destacados, otros, ESTADO_EN_MERCADO } from './proyectosData';
 import './Proyectos.css';
 
@@ -14,12 +16,18 @@ const proyectoShape = PropTypes.shape({
   bajada: PropTypes.string,
   descripcion: PropTypes.string.isRequired,
   nota: PropTypes.string,
+  cifra: PropTypes.shape({
+    valor: PropTypes.number.isRequired,
+    etiqueta: PropTypes.string.isRequired,
+  }),
   flujo: PropTypes.arrayOf(PropTypes.string),
   detalles: PropTypes.arrayOf(PropTypes.string).isRequired,
   estado: PropTypes.string.isRequired,
   enlace: PropTypes.string,
   placa: PropTypes.string,
 });
+
+const formatoCifra = (valor) => valor.toLocaleString('es-CO');
 
 /* Foco que sigue al cursor dentro de la celda */
 const handleSpot = (e) => {
@@ -64,8 +72,25 @@ const Enlace = ({ proyecto }) => (
 
 Enlace.propTypes = { proyecto: proyectoShape.isRequired };
 
+/* Sello del premio: lleva a la sección Premios */
+const Sello = ({ premio }) => (
+  <a className="proyecto__premio" href="#premios">
+    <PiTrophyBold size={13} aria-hidden="true" />
+    {premio.puesto} · {premio.convocatoria} {premio.anio}
+  </a>
+);
+
+Sello.propTypes = {
+  premio: PropTypes.shape({
+    puesto: PropTypes.string.isRequired,
+    convocatoria: PropTypes.string.isRequired,
+    anio: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
 const Celda = ({ proyecto }) => {
   const enMercado = proyecto.estado === ESTADO_EN_MERCADO;
+  const premio = premioDeProyecto(proyecto.id);
 
   return (
     <article
@@ -77,10 +102,22 @@ const Celda = ({ proyecto }) => {
         <span className={`estado ${claseEstado(proyecto.estado)}`}>{proyecto.estado}</span>
       </header>
 
+      {premio && <Sello premio={premio} />}
       <h3>{proyecto.titulo}</h3>
       {proyecto.bajada && <p className="proyecto__bajada">{proyecto.bajada}</p>}
       <p className="proyecto__desc">{proyecto.descripcion}</p>
       {proyecto.nota && <p className="proyecto__nota">{proyecto.nota}</p>}
+
+      {proyecto.cifra && (
+        <p className="proyecto__cifra">
+          {/* El + dice que la cifra sigue sumando cada día */}
+          <strong>
+            <Contador valor={proyecto.cifra.valor} formato={formatoCifra} />
+            <span className="proyecto__cifra-mas">+</span>
+          </strong>
+          <span className="label">{proyecto.cifra.etiqueta}</span>
+        </p>
+      )}
 
       {proyecto.flujo && (
         <ol className="proyecto__flujo" aria-label="Flujo del sistema">
